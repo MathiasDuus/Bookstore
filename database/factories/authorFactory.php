@@ -3,9 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
-class CountryFactory extends Factory
+class authorFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,8 +14,8 @@ class CountryFactory extends Factory
     public function definition()
     {
         return [
-            'abbreviation' => $this->faker->unique()->countryISOAlpha3(),
-            'name' => $this->faker->country(),
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
         ];
     }
 }

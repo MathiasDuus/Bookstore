@@ -3,9 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
-class CountryFactory extends Factory
+class departmentFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,9 +13,13 @@ class CountryFactory extends Factory
      */
     public function definition()
     {
+        $dep=[
+          "manager",
+          "normal",
+          "chef"
+        ];
         return [
-            'abbreviation' => $this->faker->unique()->countryISOAlpha3(),
-            'name' => $this->faker->country(),
+            'name' => $this->faker->unique()->randomElement($dep),
         ];
     }
 }

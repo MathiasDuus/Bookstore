@@ -3,9 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
-class CountryFactory extends Factory
+class storeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,9 +13,10 @@ class CountryFactory extends Factory
      */
     public function definition()
     {
+        $address = \App\Models\address::pluck('id')->toArray();
         return [
-            'abbreviation' => $this->faker->unique()->countryISOAlpha3(),
-            'name' => $this->faker->country(),
+            'address_id' => $this->faker->randomElement($address),
+            'name' => $this->faker->colorName(),
         ];
     }
 }
