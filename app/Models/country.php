@@ -21,5 +21,6 @@ class country extends Model
     protected $primaryKey = "abbreviation";
     public $incrementing = false;
     protected $keyType = "string";
+
     use HasFactory;
 }
