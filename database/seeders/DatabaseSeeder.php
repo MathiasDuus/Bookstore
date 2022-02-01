@@ -28,6 +28,6 @@ class DatabaseSeeder extends Seeder
         \App\Models\depot::factory(50)->create();
         \App\Models\department::factory(3)->create();
         \App\Models\OrderLine::factory(30)->create();
-        \App\Models\worker::factory(50)->create();
+        \App\Models\employee::factory(50)->create();
     }
 }

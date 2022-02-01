@@ -14,7 +14,7 @@ class department extends Model
 
     public function worker()
     {
-        return $this->belongsTo(worker::class,"department_id", "id");
+        return $this->belongsTo(employee::class,"department_id", "id");
     }
 
     use HasFactory;

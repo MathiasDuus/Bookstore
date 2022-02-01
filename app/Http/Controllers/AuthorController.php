@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\author;
 use Illuminate\Http\Request;
+use App\Http\Resources\AuthorResource;
+use App\Http\Requests\AuthorRequest;
 
 class AuthorController extends Controller
 {
@@ -14,7 +16,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        //
+        return AuthorResource::collection(author::all());
     }
 
     /**
@@ -33,9 +35,13 @@ class AuthorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AuthorRequest $request)
     {
-        //
+        $faker = \Faker\Factory::create(1);
+        $author = author::create([
+            'name' => $faker->name
+        ]);
+        return new AuthorResource($author);;
     }
 
     /**
@@ -46,7 +52,7 @@ class AuthorController extends Controller
      */
     public function show(author $author)
     {
-        //
+        return new AuthorResource($author);
     }
 
     /**
@@ -67,9 +73,13 @@ class AuthorController extends Controller
      * @param  \App\Models\author  $author
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, author $author)
+    public function update(AuthorRequest $request, author $author)
     {
-        //
+        $author->update([
+            'name' => $request->input('name')
+        ]);
+
+        return new AuthorResource($author);
     }
 
     /**
@@ -80,6 +90,6 @@ class AuthorController extends Controller
      */
     public function destroy(author $author)
     {
-        //
+        return "string: author deletion require all books with said author to be deleted";
     }
 }

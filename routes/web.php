@@ -14,9 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $relations = [
-        "store",
-        "department",
-    ];
-    return \App\Models\worker::with($relations)->get();
+    return view('welcome');
 });

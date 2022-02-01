@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\worker;
+use App\Models\employee;
 use Illuminate\Http\Request;
 
-class WorkerController extends Controller
+class EmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class WorkerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\worker  $worker
+     * @param  \App\Models\employee  $worker
      * @return \Illuminate\Http\Response
      */
-    public function show(worker $worker)
+    public function show(employee $worker)
     {
         //
     }
@@ -52,10 +52,10 @@ class WorkerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\worker  $worker
+     * @param  \App\Models\employee  $worker
      * @return \Illuminate\Http\Response
      */
-    public function edit(worker $worker)
+    public function edit(employee $worker)
     {
         //
     }
@@ -64,10 +64,10 @@ class WorkerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\worker  $worker
+     * @param  \App\Models\employee  $worker
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, worker $worker)
+    public function update(Request $request, employee $worker)
     {
         //
     }
@@ -75,10 +75,10 @@ class WorkerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\worker  $worker
+     * @param  \App\Models\employee  $worker
      * @return \Illuminate\Http\Response
      */
-    public function destroy(worker $worker)
+    public function destroy(employee $worker)
     {
         //
     }

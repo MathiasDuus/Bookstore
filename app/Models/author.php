@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class author extends Model
 {
     protected $fillable = [
-        'first_name',
-        'last_name'
+        'name',
     ];
     public $timestamps = false;
 

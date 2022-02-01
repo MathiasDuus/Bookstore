@@ -25,7 +25,7 @@ class store extends Model
 
     public function worker()
     {
-        return $this->belongsTo(worker::class, "store_id","id");
+        return $this->belongsTo(employee::class, "store_id","id");
     }
 
 
