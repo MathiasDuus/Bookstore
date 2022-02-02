@@ -14,6 +14,12 @@ class PublisherResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id'=>(string)$this->id,
+            'type'=>'Publisher',
+            'attributes'=>[
+                'name'=>$this->name
+            ]
+        ];
     }
 }

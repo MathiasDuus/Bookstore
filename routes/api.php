@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('/author', \App\Http\Controllers\AuthorController::class);
 Route::apiResource('/genre', \App\Http\Controllers\GenreController::class);
+Route::apiResource('/publisher', \App\Http\Controllers\PublisherController::class);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
