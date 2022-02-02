@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\GenreResource;
 use App\Models\genre;
 use Illuminate\Http\Request;
+use App\Http\Requests\GenreRequest;
 
 class GenreController extends Controller
 {
@@ -14,7 +16,7 @@ class GenreController extends Controller
      */
     public function index()
     {
-        //
+        return GenreResource::collection(genre::all());
     }
 
     /**
@@ -33,9 +35,13 @@ class GenreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GenreRequest $request)
     {
-        //
+        $faker = \Faker\Factory::create(1);
+        $author = genre::create([
+            'name' => $faker->name
+        ]);
+        return new GenreResource($author);;
     }
 
     /**
@@ -46,7 +52,7 @@ class GenreController extends Controller
      */
     public function show(genre $genre)
     {
-        //
+        return new GenreResource($genre);
     }
 
     /**
@@ -67,9 +73,13 @@ class GenreController extends Controller
      * @param  \App\Models\genre  $genre
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, genre $genre)
+    public function update(GenreRequest $request, genre $genre)
     {
-        //
+        $genre->update([
+            'name' => $request->input('name')
+        ]);
+
+        return new GenreResource($genre);
     }
 
     /**
@@ -80,6 +90,6 @@ class GenreController extends Controller
      */
     public function destroy(genre $genre)
     {
-        //
+        return "string: genre deletion requires all books with that genre to be deleted";
     }
 }
