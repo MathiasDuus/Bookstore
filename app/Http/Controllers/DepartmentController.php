@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DepartmentRequest;
+use App\Http\Resources\DepartmentResource;
 use App\Models\department;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        return DepartmentResource::collection(department::all());
     }
 
     /**
@@ -33,9 +35,14 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DepartmentRequest $request)
     {
-        //
+
+        $faker = \Faker\Factory::create(1);
+        $department = department::create([
+            'name' => $faker->jobTitle()
+        ]);
+        return new DepartmentResource($department);
     }
 
     /**
@@ -46,7 +53,7 @@ class DepartmentController extends Controller
      */
     public function show(department $department)
     {
-        //
+        return new DepartmentResource($department);
     }
 
     /**
@@ -67,9 +74,13 @@ class DepartmentController extends Controller
      * @param  \App\Models\department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, department $department)
+    public function update(DepartmentResource $request, department $department)
     {
-        //
+        $department->update([
+            'name'=>$request->input('name')
+        ]);
+
+        return new DepartmentResource($department);
     }
 
     /**
@@ -80,6 +91,6 @@ class DepartmentController extends Controller
      */
     public function destroy(department $department)
     {
-        //
+        return "string: department deletion require all employees with said department to be deleted";
     }
 }
