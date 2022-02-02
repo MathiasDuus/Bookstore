@@ -74,7 +74,7 @@ class DepartmentController extends Controller
      * @param  \App\Models\department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(DepartmentResource $request, department $department)
+    public function update(DepartmentRequest $request, department $department)
     {
         $department->update([
             'name'=>$request->input('name')

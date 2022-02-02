@@ -41,7 +41,7 @@ class AuthorController extends Controller
         $author = author::create([
             'name' => $faker->name
         ]);
-        return new AuthorResource($author);;
+        return new AuthorResource($author);
     }
 
     /**

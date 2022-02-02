@@ -16,7 +16,7 @@ class DepartmentResource extends JsonResource
     {
         return [
             'id'=>(string)$this->id,
-            'type'=>'Author',
+            'type'=>'Department',
             'attributes'=>[
                 'name'=>$this->name
             ]

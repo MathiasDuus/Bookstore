@@ -24,7 +24,7 @@ class PublisherRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:authors|max:255'
+            'name' => 'required|unique:publishers|max:255'
         ];
     }
 }

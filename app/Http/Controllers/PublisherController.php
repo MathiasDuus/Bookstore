@@ -74,7 +74,7 @@ class PublisherController extends Controller
      * @param  \App\Models\publisher  $publisher
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, publisher $publisher)
+    public function update(PublisherRequest $request, publisher $publisher)
     {
         $publisher->update([
             'name' => $request->input('name')
