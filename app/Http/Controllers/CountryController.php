@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CountryRequest;
+use App\Http\Resources\CountryResource;
 use App\Models\country;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,7 @@ class CountryController extends Controller
      */
     public function index()
     {
-        //
+        return CountryResource::collection(country::all());
     }
 
     /**
@@ -33,9 +35,15 @@ class CountryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CountryRequest $request)
     {
-        //
+        $faker = \Faker\Factory::create(1);
+        $country = country::create([
+            'abbreviation' => $faker->countryCode,
+            'name' => $faker->country
+        ]);
+
+        return new CountryResource($country);
     }
 
     /**
@@ -46,7 +54,7 @@ class CountryController extends Controller
      */
     public function show(country $country)
     {
-        //
+        return new CountryResource($country);
     }
 
     /**
@@ -67,9 +75,14 @@ class CountryController extends Controller
      * @param  \App\Models\country  $country
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, country $country)
+    public function update(CountryRequest $request, country $country) // Maybe abbreviation should not be required here
     {
-        //
+        $country->update([
+            'abbreviation'=>$request->input('abbreviation'),
+            'name' => $request->input('name')
+        ]);
+
+        return new CountryResource($country);
     }
 
     /**
@@ -80,6 +93,6 @@ class CountryController extends Controller
      */
     public function destroy(country $country)
     {
-        //
+        return "string: country deletion require all addresses with said country to be deleted";
     }
 }

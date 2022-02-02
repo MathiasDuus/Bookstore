@@ -9,7 +9,7 @@ class country extends Model
 {
     protected $fillable = [
         'abbreviation',
-        'country',
+        'name',
     ];
     public $timestamps = false;
 
