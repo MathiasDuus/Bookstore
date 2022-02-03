@@ -14,7 +14,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\country::factory(20)->create();
+        $csvFile = fopen(base_path("..\..\Downloads\data_csv.csv"), "r");
+
+        $firstline = true;
+        while (($data = fgetcsv($csvFile, 2000, ",")) !== FALSE) {
+            if (!$firstline) {
+                Models\country::create([
+                    "name" => $data['0'],
+                    "abbreviation" => $data['1']
+                ]);
+            }
+            $firstline = false;
+        }
+
+        fclose($csvFile);
         \App\Models\customer::factory(10)->create();
         \App\Models\postal::factory(10)->create();
         \App\Models\address::factory(10)->create();
