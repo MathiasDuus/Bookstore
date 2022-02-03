@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostalRequest;
+use App\Http\Resources\CountryResource;
+use App\Http\Resources\PostalResource;
 use App\Models\postal;
 use Illuminate\Http\Request;
 
@@ -14,7 +17,7 @@ class PostalController extends Controller
      */
     public function index()
     {
-        //
+        return PostalResource::collection(postal::all());
     }
 
     /**
@@ -33,9 +36,18 @@ class PostalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostalRequest $request)
     {
-        //
+        $faker = \Faker\Factory::create(1);
+        $country = \App\Models\country::where('name',$faker->country/*$request->input('country')*/)->pluck('abbreviation')->first();
+
+        $postal = postal::create([
+            'post_code' => $faker->postcode(),
+            'city' => $faker->city(),
+            'country_id' => $country,
+        ]);
+
+        return new PostalResource($postal);
     }
 
     /**
@@ -46,7 +58,7 @@ class PostalController extends Controller
      */
     public function show(postal $postal)
     {
-        //
+        return new PostalResource($postal);
     }
 
     /**
@@ -67,9 +79,16 @@ class PostalController extends Controller
      * @param  \App\Models\postal  $postal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, postal $postal)
+    public function update(PostalRequest $request, postal $postal)
     {
-        //
+        $country = \App\Models\country::where('name',$request->input('country'))->pluck('abbreviation')->first();
+        $postal->update([
+            'post_code' => $request->input('post_code'),
+            'city' => $request->input('city'),
+            'country_id' => $country,
+        ]);
+
+        return new PostalResource($postal);
     }
 
     /**
@@ -80,6 +99,7 @@ class PostalController extends Controller
      */
     public function destroy(postal $postal)
     {
-        //
+
+        return "string: you should not delete from postal";
     }
 }

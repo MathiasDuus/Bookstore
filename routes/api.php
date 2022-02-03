@@ -20,6 +20,7 @@ Route::apiResource('/publisher', \App\Http\Controllers\PublisherController::clas
 Route::apiResource('/department', \App\Http\Controllers\DepartmentController::class);
 Route::apiResource('/customer', \App\Http\Controllers\CustomerController::class);
 Route::apiResource('/country', \App\Http\Controllers\CountryController::class);
+Route::apiResource('/postal', \App\Http\Controllers\PostalController::class);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

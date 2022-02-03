@@ -16,6 +16,11 @@ class country extends Model
     public function postal()
     {
         return $this->belongsTo(postal::class, "country_id", "abbreviation");
+        /*
+           return $this->belongsToMany(postal::class)
+            ->as('country_id')
+            ->withTimestamps();
+        */
     }
 
     protected $primaryKey = "abbreviation";
