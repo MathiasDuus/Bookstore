@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class CountryRequest extends FormRequest
 {
@@ -23,9 +24,17 @@ class CountryRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'abbreviation' => 'required|unique:countries|max:255',
-            'name' => 'required|unique:countries|max:255'
-        ];
+        if (Request::isMethod('post'))
+        {
+            return [
+                'abbreviation' => 'required|unique:countries|max:255',
+                'name' => 'required|unique:countries|max:255'
+            ];
+        }
+        else {
+            return [
+                'name' => 'required|unique:countries|max:255'
+            ];
+        }
     }
 }

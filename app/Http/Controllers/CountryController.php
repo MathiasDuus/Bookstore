@@ -78,7 +78,7 @@ class CountryController extends Controller
     public function update(CountryRequest $request, country $country) // Maybe abbreviation should not be required here
     {
         $country->update([
-            'abbreviation'=>$request->input('abbreviation'),
+            'abbreviation'=>$country->abbreviation,
             'name' => $request->input('name')
         ]);
 
