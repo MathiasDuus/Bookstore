@@ -20,8 +20,7 @@ class PostalResource extends JsonResource
             'attributes'=>[
                 'post_code'=>$this->post_code,
                 'city'=>$this->city,
-                'country_id'=>$this->country_id,
-                'country'=> $this->country->name,
+                'country'=> $this->country,
             ]
         ];
     }

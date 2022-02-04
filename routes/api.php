@@ -21,6 +21,7 @@ Route::apiResource('/department', \App\Http\Controllers\DepartmentController::cl
 Route::apiResource('/customer', \App\Http\Controllers\CustomerController::class);
 Route::apiResource('/country', \App\Http\Controllers\CountryController::class);
 Route::apiResource('/postal', \App\Http\Controllers\PostalController::class);
+Route::apiResource('/address', \App\Http\Controllers\AddressController::class);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostalRequest;
-use App\Http\Resources\CountryResource;
 use App\Http\Resources\PostalResource;
 use App\Models\postal;
 use Illuminate\Http\Request;
@@ -99,7 +98,6 @@ class PostalController extends Controller
      */
     public function destroy(postal $postal)
     {
-
         return "string: you should not delete from postal";
     }
 }
