@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// API ROUTES
 Route::apiResource('/author', \App\Http\Controllers\AuthorController::class);
 Route::apiResource('/genre', \App\Http\Controllers\GenreController::class);
 Route::apiResource('/publisher', \App\Http\Controllers\PublisherController::class);
@@ -22,6 +23,9 @@ Route::apiResource('/customer', \App\Http\Controllers\CustomerController::class)
 Route::apiResource('/country', \App\Http\Controllers\CountryController::class);
 Route::apiResource('/postal', \App\Http\Controllers\PostalController::class);
 Route::apiResource('/address', \App\Http\Controllers\AddressController::class);
+Route::apiResource('/book', \App\Http\Controllers\BookController::class);
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

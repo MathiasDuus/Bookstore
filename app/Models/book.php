@@ -28,7 +28,14 @@ class book extends Model
 
     public function bookGenre()
     {
-        return $this->belongsTo(BookGenre::class, "book_id", "id");
+        return $this->hasManyThrough(/*genre::class, BookGenre::class*/
+            '\App\Models\genre',
+            '\App\Models\BookGenre',
+            'book_id',
+            'id',
+            'id',
+            'genre_id'
+        );
     }
 
     public function depot()

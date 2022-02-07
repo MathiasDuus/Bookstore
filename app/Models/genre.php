@@ -12,6 +12,10 @@ class genre extends Model
     ];
     public $timestamps = false;
 
+    protected $hidden=[
+      'laravel_through_key'
+    ];
+
     public function bookGenre()
     {
         return $this->belongsTo(BookGenre::class, "genre_id", "id");
