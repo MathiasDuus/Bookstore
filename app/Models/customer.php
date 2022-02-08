@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class customer extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -17,8 +19,7 @@ class customer extends Model
 
     public function address()
     {
-        return $this->belongsTo(address::class,"customer_id","id");
+        return $this->hasOne(address::class,"id","address_id");
     }
 
-    use HasFactory;
 }

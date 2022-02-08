@@ -17,7 +17,6 @@ class CreateAddressesTable extends Migration
             $table->id();
             $table->foreignId('postal_id')->constrained('postals','id');
             $table->string("street");
-            $table->foreignId('customer_id')->constrained('customers','id');
             $table->timestamps();
         });
     }

@@ -6,6 +6,7 @@ use App\Models\author;
 use Illuminate\Http\Request;
 use App\Http\Resources\AuthorResource;
 use App\Http\Requests\AuthorRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AuthorController extends Controller
 {
@@ -37,11 +38,9 @@ class AuthorController extends Controller
      */
     public function store(AuthorRequest $request)
     {
-        $faker = \Faker\Factory::create(1);
-        $author = author::create([
-            'name' => $faker->name
-        ]);
-        return new AuthorResource($author);
+        $author = author::create($request->all());
+
+        return response()->json(new AuthorResource($author), 201);
     }
 
     /**

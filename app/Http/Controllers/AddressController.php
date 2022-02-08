@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddressRequest;
-use App\Http\Requests\AuthorRequest;
 use App\Http\Resources\AddressResource;
 use App\Models\address;
 use Illuminate\Http\Request;
@@ -40,12 +39,10 @@ class AddressController extends Controller
     {
         $faker = \Faker\Factory::create(1);
         $postal = \App\Models\postal::pluck('id')->first();
-        $customer = \App\Models\customer::pluck('id')->first();
 
         $address = address::create([
             'postal_id' => $postal,
             'street' => $faker->city(),
-            'customer_id' => $customer,
         ]);
 
         return new AddressResource($address);
@@ -82,12 +79,9 @@ class AddressController extends Controller
      */
     public function update(AddressRequest $request, address $address)
     {
-        $customer = \App\Models\customer::where('mail', $request->input('mail'))->pluck('id')->first();
-
         $address->update([
             'postal_id' => $request->input('postal_id'),
             'street' => $request->input('street'),
-            'customer_id' => $customer,
         ]);
 
         return new AddressResource($address);
