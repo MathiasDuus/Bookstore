@@ -37,6 +37,8 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
+        // TODO: Create order line entry/ies, when making an order
+        // TODO: when order line is created subtract amount of books in order from depot, check if depot>=order
         $faker = \Faker\Factory::create(1);
         $address = \App\Models\address::pluck('id')->first();
         $status =  [

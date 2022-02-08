@@ -18,6 +18,8 @@ class OrderResource extends JsonResource
             'id' => (string)$this->id,
             'type' => 'Order',
             'attributes' => [
+                'date' => $this->date,
+                'status' => $this->status,
                 'customer'=>[
                     'first_name'=>$this->address->customer->first_name,
                     'last_name'=>$this->address->customer->last_name,
@@ -30,8 +32,7 @@ class OrderResource extends JsonResource
                     'city' => $this->address->postal->city,
                     'country' => $this->address->postal->country->name,
                 ],
-                'date' => $this->date,
-                'status' => $this->status,
+                'books'=>$this->orderLine,
             ]
         ];
     }
