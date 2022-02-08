@@ -24,6 +24,7 @@ Route::apiResource('/country', \App\Http\Controllers\CountryController::class);
 Route::apiResource('/postal', \App\Http\Controllers\PostalController::class);
 Route::apiResource('/address', \App\Http\Controllers\AddressController::class);
 Route::apiResource('/book', \App\Http\Controllers\BookController::class);
+Route::apiResource('/order', \App\Http\Controllers\OrderController::class);
 
 
 

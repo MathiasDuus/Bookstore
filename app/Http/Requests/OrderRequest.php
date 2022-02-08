@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddressRequest extends FormRequest
+class OrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,9 @@ class AddressRequest extends FormRequest
     public function rules()
     {
         return [
-            'postal_id' => 'required|numeric|exists:postals,id|max:255',
-            'street' => 'required|max:255',
-            'mail' => 'required|email:rfc|exists:customers,mail|max:255',/*TODO: Add "dns" to email rule*/
+            'address_id'=>'required|numeric|exists:addresses,id|max:255',
+            'date'=>'required|date|max:255',
+            'status'=>'required|max:255',
         ];
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderRequest;
+use App\Http\Resources\OrderResource;
 use App\Models\order;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        return OrderResource::collection(order::all());
     }
 
     /**
@@ -33,9 +35,23 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
-        //
+        $faker = \Faker\Factory::create(1);
+        $address = \App\Models\address::pluck('id')->first();
+        $status =  [
+            "Order Recieved",
+            "In transit",
+            "Delivered"
+        ];
+
+        $order = order::create([
+            'address_id' => $address,
+            'date' => $faker->date,
+            'status' => $faker->randomElement($status),
+        ]);
+
+        return new OrderResource($order);
     }
 
     /**
@@ -46,7 +62,7 @@ class OrderController extends Controller
      */
     public function show(order $order)
     {
-        //
+        return new OrderResource($order);
     }
 
     /**
@@ -67,9 +83,15 @@ class OrderController extends Controller
      * @param  \App\Models\order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, order $order)
+    public function update(OrderRequest $request, order $order)
     {
-        //
+        $order->update([
+            'address_id' => $request->input('address_id'),
+            'date' => $request->input('date'),
+            'status' => $request->input('status'),
+        ]);
+
+        return new OrderResource($order);
     }
 
     /**
@@ -80,6 +102,6 @@ class OrderController extends Controller
      */
     public function destroy(order $order)
     {
-        //
+        return 'String: Should not delete Order';
     }
 }
