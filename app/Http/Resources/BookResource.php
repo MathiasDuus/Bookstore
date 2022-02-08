@@ -22,9 +22,9 @@ class BookResource extends JsonResource
                 'release_date'=>$this->release_date,
                 'price'=>$this->price,
                 'pages'=>$this->pages,
-                'genre'=>$this->BookGenre,
                 'publisher'=> $this->publisher->name,
                 'author'=> $this->author->name,
+                'genre'=>$this->BookGenre,
             ]
         ];
     }

@@ -24,7 +24,7 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'address_id'=>'required|numeric|exists:addresses,id|max:255',
+            'address_id'=>'required|exists:addresses,id|numeric|digits_between:1,11',
             'date'=>'required|date|max:255',
             'status'=>'required|max:255',
         ];

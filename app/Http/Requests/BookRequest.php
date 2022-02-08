@@ -28,9 +28,9 @@ class BookRequest extends FormRequest
             'name' => 'required|max:255',
             'author' => 'required|exists:authors,name|max:255',
             'publisher' => 'required|exists:publishers,name|max:255',
-            'price' => 'required|numeric|max:99999999,99',
+            'price' => 'required|numeric|digits_between:1,11',
             'release_date' => 'required|date',
-            'pages' => 'required|numeric|max:99999999999',
+            'pages' => 'required|integer|digits_between:1,11',
             'genre' => [(new Delimited('max:255'))],
         ];
     }
