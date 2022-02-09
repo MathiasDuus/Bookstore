@@ -94,6 +94,6 @@ class GenreController extends Controller
         $genre->delete();
         return response(null, 204);
         */
-        return "string: genre deletion requires all books with that genre to be deleted";
+        return response('Genre deletion is not allowed',405);
     }
 }

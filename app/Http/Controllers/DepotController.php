@@ -84,6 +84,8 @@ class DepotController extends Controller
         /*
         $depot->delete();
         return response(null, 204);
+        or
+        return response('Depot deletion is not allowed',405);
         */
     }
 }

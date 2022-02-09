@@ -84,5 +84,6 @@ class BookGenreController extends Controller
         $bookGenre->delete();
         return response(null, 204);
         */
+        return response('Book genre deletion is not allowed',405);
     }
 }

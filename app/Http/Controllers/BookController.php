@@ -155,6 +155,6 @@ class BookController extends Controller
         $book->delete();
         return response(null, 204);
         */
-        return "Books should not be deleted, instead set amount to zero in depot table";
+        return response('Book deletion is not allowed, set amount to zero in depot',405);//TODO: When delete set depot amount to zero
     }
 }

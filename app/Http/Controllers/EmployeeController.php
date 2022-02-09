@@ -84,6 +84,8 @@ class EmployeeController extends Controller
         /*
         $worker->delete();
         return response(null, 204);
+        or
+        return response('Employee deletion is not allowed',405);
         */
     }
 }

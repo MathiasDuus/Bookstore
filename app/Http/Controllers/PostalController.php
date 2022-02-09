@@ -102,6 +102,6 @@ class PostalController extends Controller
         $postal->delete();
         return response(null, 204);
         */
-        return "string: you should not delete from postal";
+        return response('Postal deletion is not allowed',405);
     }
 }

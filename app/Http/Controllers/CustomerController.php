@@ -102,6 +102,8 @@ class CustomerController extends Controller
         /*
         $customer->delete();
         return response(null, 204);
+        or
+        return response('You are not allowed to delete a customer',405);
         */
         $customer->update([
             'active' => false,

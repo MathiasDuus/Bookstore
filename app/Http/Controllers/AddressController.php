@@ -104,6 +104,6 @@ class AddressController extends Controller
         $address->delete();
         return response(null, 204);
         */
-        return "string: you should not delete an address";
+        return response('Address deletion is not allowed',405);
     }
 }

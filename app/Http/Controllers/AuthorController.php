@@ -93,6 +93,6 @@ class AuthorController extends Controller
         $author->delete();
         return response(null, 204);
         */
-        return "string: author deletion require all books with said author to be deleted";
+        return response('Author deletion is not allowed',405);
     }
 }

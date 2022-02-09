@@ -95,6 +95,7 @@ class DepartmentController extends Controller
         $department->delete();
         return response(null, 204);
         */
-        return "string: department deletion require all employees with said department to be deleted";
+
+        return response('Department deletion is not allowed',405);
     }
 }

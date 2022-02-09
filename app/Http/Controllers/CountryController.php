@@ -97,6 +97,6 @@ class CountryController extends Controller
         $country->delete();
         return response(null, 204);
         */
-        return "string: country deletion require all addresses with said country to be deleted";
+        return response('Country deletion is not allowed',405);
     }
 }

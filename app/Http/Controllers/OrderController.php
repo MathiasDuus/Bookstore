@@ -108,6 +108,6 @@ class OrderController extends Controller
         $order->delete();
         return response(null, 204);
         */
-        return 'String: Should not delete Order';
+        return response('Order deletion is not allowed',405);
     }
 }
