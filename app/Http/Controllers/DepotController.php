@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DepotRequest;
+use App\Http\Resources\DepotResource;
 use App\Models\depot;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,7 @@ class DepotController extends Controller
      */
     public function index()
     {
-        //
+        return DepotResource::collection(depot::all());
     }
 
     /**
@@ -33,9 +35,15 @@ class DepotController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DepotRequest $request)
     {
-        //
+        $depot = depot::create([
+            'book_id' => $request->input('book_id'),
+            'amount' => $request->input('amount'),
+            'store_id' => $request->input('store_id'),
+        ]);
+
+        return new DepotResource($depot);
     }
 
     /**
@@ -46,7 +54,7 @@ class DepotController extends Controller
      */
     public function show(depot $depot)
     {
-        //
+        return new DepotResource($depot);
     }
 
     /**
@@ -67,9 +75,15 @@ class DepotController extends Controller
      * @param  \App\Models\depot  $depot
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, depot $depot)
+    public function update(DepotRequest $request, depot $depot)
     {
-        //
+        $depot->update([
+            'book_id' => $request->input('book_id'),
+            'amount' => $request->input('amount'),
+            'store_id' => $request->input('store_id'),
+        ]);
+
+        return new DepotResource($depot);
     }
 
     /**
@@ -87,5 +101,6 @@ class DepotController extends Controller
         or
         return response('Depot deletion is not allowed',405);
         */
+        return response('Depot deletion is not allowed',405);
     }
 }

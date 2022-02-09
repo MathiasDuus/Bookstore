@@ -27,6 +27,7 @@ Route::apiResource('/book', \App\Http\Controllers\BookController::class);
 Route::apiResource('/order', \App\Http\Controllers\OrderController::class);
 Route::apiResource('/orderLine', \App\Http\Controllers\OrderLineController::class);
 Route::apiResource('/store', \App\Http\Controllers\StoreController::class);
+Route::apiResource('/depot', \App\Http\Controllers\DepotController::class);
 
 
 
