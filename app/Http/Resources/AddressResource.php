@@ -20,13 +20,13 @@ class AddressResource extends JsonResource
             'attributes'=>[
                 'street'=>$this->street,
                 'postal'=>[
-                    'id'=>$this->postal->id,
+                    'id'=>(string)$this->postal->id,
                     'post_code'=>$this->postal->post_code,
                     'city'=>$this->postal->city,
                     'country'=>$this->postal->country->name,
                 ],
                 'customer'=> [
-                    'id'=>$this->customer->id,
+                    'id'=>(string)$this->customer->id,
                     'first_name'=>$this->customer->first_name,
                     'last_name'=>$this->customer->last_name,
                     'mail'=>$this->customer->mail,

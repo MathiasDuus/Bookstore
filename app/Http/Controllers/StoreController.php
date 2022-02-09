@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequest;
+use App\Http\Resources\StoreResource;
 use App\Models\store;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,7 @@ class StoreController extends Controller
      */
     public function index()
     {
-        //
+        return StoreResource::collection(store::all());
     }
 
     /**
@@ -33,9 +35,17 @@ class StoreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $faker = \Faker\Factory::create(1);
+        $address = \App\Models\address::pluck('id')->first();
+
+        $store = store::create([
+            'name' => $faker->colorName,
+            'address_id' => $address,
+        ]);
+
+        return new StoreResource($store);
     }
 
     /**
@@ -46,7 +56,7 @@ class StoreController extends Controller
      */
     public function show(store $store)
     {
-        //
+        return new StoreResource($store);
     }
 
     /**
@@ -69,7 +79,14 @@ class StoreController extends Controller
      */
     public function update(Request $request, store $store)
     {
-        //
+        $address = \App\Models\address::where('id', $request->input('address_id'))->pluck('id')->first();
+
+        $store->update([
+            'name' => $request->input('name'),
+            'address_id' => $address,
+        ]);
+
+        return new StoreResource($store);
     }
 
     /**
@@ -84,5 +101,6 @@ class StoreController extends Controller
         $store->delete();
         return response(null, 204);
         */
+        return response('You are not allowed to delete a store',405);
     }
 }
