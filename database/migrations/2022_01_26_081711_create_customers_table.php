@@ -20,6 +20,7 @@ class CreateCustomersTable extends Migration
             $table->string("mail");
             $table->string("password");
             $table->boolean("active");
+            $table->timestamps();
         });
     }
 

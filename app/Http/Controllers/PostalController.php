@@ -98,6 +98,10 @@ class PostalController extends Controller
      */
     public function destroy(postal $postal)
     {
+        /*
+        $postal->delete();
+        return response(null, 204);
+        */
         return "string: you should not delete from postal";
     }
 }

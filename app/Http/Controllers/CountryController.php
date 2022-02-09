@@ -93,6 +93,10 @@ class CountryController extends Controller
      */
     public function destroy(country $country)
     {
+        /*
+        $country->delete();
+        return response(null, 204);
+        */
         return "string: country deletion require all addresses with said country to be deleted";
     }
 }

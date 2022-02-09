@@ -80,6 +80,9 @@ class StoreController extends Controller
      */
     public function destroy(store $store)
     {
-        //
+        /*
+        $store->delete();
+        return response(null, 204);
+        */
     }
 }

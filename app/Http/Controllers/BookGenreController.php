@@ -80,6 +80,9 @@ class BookGenreController extends Controller
      */
     public function destroy(BookGenre $bookGenre)
     {
-        //
+        /*
+        $bookGenre->delete();
+        return response(null, 204);
+        */
     }
 }

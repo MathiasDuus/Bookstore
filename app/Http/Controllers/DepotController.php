@@ -80,6 +80,10 @@ class DepotController extends Controller
      */
     public function destroy(depot $depot)
     {
-        //
+
+        /*
+        $depot->delete();
+        return response(null, 204);
+        */
     }
 }

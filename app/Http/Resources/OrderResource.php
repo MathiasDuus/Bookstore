@@ -32,7 +32,6 @@ class OrderResource extends JsonResource
                     'city' => $this->address->postal->city,
                     'country' => $this->address->postal->country->name,
                 ],
-                'books'=>$this->orderLine,
             ]
         ];
     }

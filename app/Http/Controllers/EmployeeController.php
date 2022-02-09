@@ -80,6 +80,10 @@ class EmployeeController extends Controller
      */
     public function destroy(employee $worker)
     {
-        //
+
+        /*
+        $worker->delete();
+        return response(null, 204);
+        */
     }
 }

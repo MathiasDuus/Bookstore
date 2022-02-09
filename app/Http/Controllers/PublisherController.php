@@ -91,6 +91,10 @@ class PublisherController extends Controller
      */
     public function destroy(publisher $publisher)
     {
+        /*
+        $publisher->delete();
+        return response(null, 204);
+        */
         return "string: publisher deletion require all books with said publisher to be deleted";
     }
 }

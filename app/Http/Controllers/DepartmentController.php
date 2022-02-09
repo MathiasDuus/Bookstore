@@ -91,6 +91,10 @@ class DepartmentController extends Controller
      */
     public function destroy(department $department)
     {
+        /*
+        $department->delete();
+        return response(null, 204);
+        */
         return "string: department deletion require all employees with said department to be deleted";
     }
 }

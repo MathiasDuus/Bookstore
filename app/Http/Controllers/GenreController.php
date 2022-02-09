@@ -90,6 +90,10 @@ class GenreController extends Controller
      */
     public function destroy(genre $genre)
     {
+        /*
+        $genre->delete();
+        return response(null, 204);
+        */
         return "string: genre deletion requires all books with that genre to be deleted";
     }
 }

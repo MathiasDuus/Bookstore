@@ -151,6 +151,10 @@ class BookController extends Controller
      */
     public function destroy(book $book)
     {
+        /*
+        $book->delete();
+        return response(null, 204);
+        */
         return "Books should not be deleted, instead set amount to zero in depot table";
     }
 }

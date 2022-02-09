@@ -16,7 +16,7 @@ class OrderLineController extends Controller
      */
     public function index()
     {
-        //return OrderLineResource::collection(OrderLine::all());
+        return OrderLineResource::collection(OrderLine::all());
     }
 
     /**
@@ -37,20 +37,24 @@ class OrderLineController extends Controller
      */
     public function store(OrderLineRequest $request)
     {
-        /*$faker = \Faker\Factory::create(1);
+        $faker = \Faker\Factory::create(1);
         $order = \App\Models\order::pluck('id')->first();
-        $book = \App\Models\book::pluck('id')->first();
+        $book = \App\Models\book::first();
         $quantity = $faker->numberBetween(0, 50);
-        $price = $book->price*$quantity;
+        if ($request->input('price') !== null) {
+            $price = $request->input('price');
+        } else {
+            $price = $book->price;
+        }
 
         $orderLine = OrderLine::create([
             'order_id' => $order,
-            'book_id' => $book,
+            'book_id' => $book->id,
             'quantity' => $quantity,
             'price' => $price,
         ]);
 
-        return new OrderLineResource($orderLine);*/
+        return new OrderLineResource($orderLine);
     }
 
     /**
@@ -61,7 +65,7 @@ class OrderLineController extends Controller
      */
     public function show(OrderLine $orderLine)
     {
-        //
+        return new OrderLineResource($orderLine);
     }
 
     /**
@@ -84,7 +88,24 @@ class OrderLineController extends Controller
      */
     public function update(Request $request, OrderLine $orderLine)
     {
-        //
+        $order = \App\Models\order::where('id', $request->input('order_id'))->first();
+        $book = \App\Models\book::where('id', $request->input('book_id'))->first();
+        $quantity = $request->input('quantity');
+
+        if ($request->input('price') !== null) {
+            $price = $request->input('price');
+        } else {
+            $price = $book->price;
+        }
+
+        $orderLine->update([
+            'order_id' => $order->id,
+            'book_id' => $book->id,
+            'quantity' => $quantity,
+            'price' => $price,
+        ]);
+
+        return new OrderLineResource($orderLine);
     }
 
     /**
@@ -95,6 +116,7 @@ class OrderLineController extends Controller
      */
     public function destroy(OrderLine $orderLine)
     {
-        //
+        $orderLine->delete();
+        return response(null, 204);
     }
 }

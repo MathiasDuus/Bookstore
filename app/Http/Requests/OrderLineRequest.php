@@ -13,7 +13,7 @@ class OrderLineRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,9 +25,9 @@ class OrderLineRequest extends FormRequest
     {
         return [
             'order_id' => 'required|exists:orders,id|numeric|digits_between:1,11',
-            'book_id' => 'required|exists:books,name|numeric|digits_between:1,11',
+            'book_id' => 'required|exists:books,id|numeric|digits_between:1,11',
             'quantity' => 'required|numeric|digits_between:1,11',
-            'price' => 'required|numeric|digits_between:1,11',
+            'price' => 'numeric|digits_between:1,11',
         ];
     }
 }

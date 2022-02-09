@@ -89,6 +89,10 @@ class AuthorController extends Controller
      */
     public function destroy(author $author)
     {
+        /*
+        $author->delete();
+        return response(null, 204);
+        */
         return "string: author deletion require all books with said author to be deleted";
     }
 }

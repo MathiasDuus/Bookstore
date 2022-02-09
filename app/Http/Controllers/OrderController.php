@@ -104,6 +104,10 @@ class OrderController extends Controller
      */
     public function destroy(order $order)
     {
+        /*
+        $order->delete();
+        return response(null, 204);
+        */
         return 'String: Should not delete Order';
     }
 }

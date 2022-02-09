@@ -100,6 +100,10 @@ class AddressController extends Controller
      */
     public function destroy(address $address)
     {
+        /*
+        $address->delete();
+        return response(null, 204);
+        */
         return "string: you should not delete an address";
     }
 }

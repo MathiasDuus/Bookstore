@@ -99,6 +99,10 @@ class CustomerController extends Controller
      */
     public function destroy(customer $customer)
     {
+        /*
+        $customer->delete();
+        return response(null, 204);
+        */
         $customer->update([
             'active' => false,
         ]);
