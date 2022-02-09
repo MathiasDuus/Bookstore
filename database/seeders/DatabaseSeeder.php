@@ -28,9 +28,9 @@ class DatabaseSeeder extends Seeder
         }
 
         fclose($csvFile);
+        \App\Models\customer::factory(10)->create();
         \App\Models\postal::factory(10)->create();
         \App\Models\address::factory(10)->create();
-        \App\Models\customer::factory(10)->create();
         \App\Models\order::factory(25)->create();
         \App\Models\author::factory(25)->create();
         \App\Models\publisher::factory(15)->create();

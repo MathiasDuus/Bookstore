@@ -38,14 +38,12 @@ class CustomerController extends Controller
     public function store(CustomerRequest $request)
     {
         $faker = \Faker\Factory::create(1);
-        $address = \App\Models\address::pluck('id')->toArray();
         $customer = customer::create([
             'first_name' => $faker->firstName(),
             'last_name' => $faker->lastName(),
             'mail' => $faker->unique()->safeEmail(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'active' => true,
-            'address_id' => $faker->randomElement($address),
         ]);
 
         return new CustomerResource($customer);
@@ -88,7 +86,6 @@ class CustomerController extends Controller
             'mail' => $request->input('mail'),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password, Should be changed to input when in production
             'active' => true,
-            'address_id' => $request->input('address_id'),
         ]);
 
         return new CustomerResource($customer);

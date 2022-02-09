@@ -14,9 +14,11 @@ class addressFactory extends Factory
     public function definition()
     {
         $postal = \App\Models\postal::pluck('id')->toArray();
+        $customer = \App\Models\customer::pluck('id')->toArray();
         return [
             'postal_id' => $this->faker->randomElement($postal),
             'street' => $this->faker->streetAddress(),
+            'customer_id' => $this->faker->randomElement($customer),
         ];
     }
 }

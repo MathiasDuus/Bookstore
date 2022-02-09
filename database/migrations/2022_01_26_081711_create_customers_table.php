@@ -20,8 +20,6 @@ class CreateCustomersTable extends Migration
             $table->string("mail");
             $table->string("password");
             $table->boolean("active");
-            $table->foreignId('address_id')->constrained('addresses','id');
-            $table->timestamps();
         });
     }
 

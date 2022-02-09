@@ -22,8 +22,7 @@ class CustomerResource extends JsonResource
                 'last_name'=>$this->last_name,
                 'mail'=>$this->mail,
                 'password'=>$this->password,
-                'active'=>$this->active,
-                'address'=>$this->address,
+                'active'=>$this->active
             ]
         ];
     }

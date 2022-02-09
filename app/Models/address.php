@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class address extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'postal_id',
         'street',
@@ -22,7 +20,7 @@ class address extends Model
 
     public function customer()
     {
-        return $this->belongsTo(customer::class, "address_id", "id");
+        return $this->hasOne(customer::class, "id", "customer_id");
     }
 
     public function order()
@@ -35,4 +33,5 @@ class address extends Model
         return $this->belongsTo(store::class, "address_id", "id");
     }
 
+    use HasFactory;
 }
