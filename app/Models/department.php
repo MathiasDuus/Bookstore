@@ -12,7 +12,7 @@ class department extends Model
     ];
     public $timestamps = false;
 
-    public function worker()
+    public function employee()
     {
         return $this->belongsTo(employee::class,"department_id", "id");
     }

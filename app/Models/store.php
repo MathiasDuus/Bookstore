@@ -23,7 +23,7 @@ class store extends Model
         return $this->belongsTo(depot::class, "store_id","id");
     }
 
-    public function worker()
+    public function employee()
     {
         return $this->belongsTo(employee::class, "store_id","id");
     }
