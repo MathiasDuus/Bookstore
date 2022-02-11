@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookGenreRequest;
+use App\Http\Resources\BookGenreResource;
 use App\Models\BookGenre;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,7 @@ class BookGenreController extends Controller
      */
     public function index()
     {
-        //
+        return BookGenreResource::collection(BookGenre::all());
     }
 
     /**
@@ -33,9 +35,10 @@ class BookGenreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BookGenreRequest $request)
     {
-        //
+        $bookGenre = BookGenre::Create($request->all());
+        return new BookGenreResource($bookGenre);
     }
 
     /**
@@ -46,7 +49,7 @@ class BookGenreController extends Controller
      */
     public function show(BookGenre $bookGenre)
     {
-        //
+        return new BookGenreResource($bookGenre);
     }
 
     /**
@@ -67,9 +70,10 @@ class BookGenreController extends Controller
      * @param  \App\Models\BookGenre  $bookGenre
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BookGenre $bookGenre)
+    public function update(BookGenreRequest $request, BookGenre $bookGenre)
     {
-        //
+        $bookGenre->update($request->all());
+        return new BookGenreResource($bookGenre);
     }
 
     /**
@@ -81,9 +85,9 @@ class BookGenreController extends Controller
     public function destroy(BookGenre $bookGenre)
     {
         /*
+        return response('Book genre deletion is not allowed',405);
+        */
         $bookGenre->delete();
         return response(null, 204);
-        */
-        return response('Book genre deletion is not allowed',405);
     }
 }
