@@ -21,6 +21,7 @@ class OrderResource extends JsonResource
                 'date' => date('d-m-Y',strtotime($this->date)),
                 'status' => $this->status,
                 'customer'=>[
+                    'id'=>(string)$this->address->customer->id,
                     'first_name'=>$this->address->customer->first_name,
                     'last_name'=>$this->address->customer->last_name,
                     'mail'=>$this->address->customer->mail,

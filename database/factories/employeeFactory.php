@@ -18,7 +18,7 @@ class employeeFactory extends Factory
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
-            'mail' => $this->faker->safeEmail(),
+            'mail' => $this->faker->unique()->email(),
             'store_id' => $this->faker->randomElement($store),
             'department_id' => $this->faker->randomElement($department),
         ];

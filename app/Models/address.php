@@ -13,6 +13,7 @@ class address extends Model
         'customer_id'
     ];
 
+    // TODO: rework all keys, in all models
     public function postal()
     {
         return $this->hasOne(postal::class, "id", "postal_id");
@@ -25,12 +26,12 @@ class address extends Model
 
     public function order()
     {
-        return $this->belongsTo(order::class,"address_id", "id");
+        return $this->belongsTo(order::class,"id", "address_id");
     }
 
     public function store()
     {
-        return $this->belongsTo(store::class, "address_id", "id");
+        return $this->belongsTo(store::class, "id", "address_id");
     }
 
     use HasFactory;

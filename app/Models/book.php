@@ -28,7 +28,7 @@ class book extends Model
 
     public function bookGenre()
     {
-        return $this->hasManyThrough(/*genre::class, BookGenre::class*/
+        return $this->hasManyThrough(
             '\App\Models\genre',
             '\App\Models\BookGenre',
             'book_id',

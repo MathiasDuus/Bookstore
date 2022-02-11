@@ -57,7 +57,7 @@ class CustomerController extends Controller
      */
     public function show(customer $customer)
     {
-        return new CustomerResource($customer);
+        return new CustomerResource($customer);// customer::with('address')->findOrFail($customer->id);
     }
 
     /**

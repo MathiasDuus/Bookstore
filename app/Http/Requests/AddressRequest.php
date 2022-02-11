@@ -26,7 +26,7 @@ class AddressRequest extends FormRequest
         return [
             'postal_id' => 'required|exists:postals,id|numeric|digits_between:1,11',
             'street' => 'required|max:255',
-            'mail' => 'required|email:rfc|exists:customers,mail|max:255',/*TODO: Add "dns" to email rule*/
+            'mail' => 'required|email:rfc,dns|exists:customers,mail|max:255',
         ];
     }
 }

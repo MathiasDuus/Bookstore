@@ -17,7 +17,7 @@ class customer extends Model
 
     public function address()
     {
-        return $this->belongsTo(address::class,"customer_id","id");
+        return $this->belongsTo(address::class,"id","customer_id");
     }
 
     use HasFactory;
