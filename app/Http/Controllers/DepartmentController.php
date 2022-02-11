@@ -37,10 +37,8 @@ class DepartmentController extends Controller
      */
     public function store(DepartmentRequest $request)
     {
-
-        $faker = \Faker\Factory::create(1);
         $department = department::create([
-            'name' => $faker->jobTitle()
+            'name' => $request->input('name'),
         ]);
         return new DepartmentResource($department);
     }

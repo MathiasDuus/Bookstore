@@ -19,7 +19,7 @@ class BookResource extends JsonResource
             'type'=>'Book',
             'attributes'=>[
                 'name'=>$this->name,
-                'release_date'=>$this->release_date,
+                'release_date'=>date('d-m-Y',strtotime($this->release_date)),
                 'price'=>$this->price,
                 'pages'=>$this->pages,
                 'publisher'=> $this->publisher->name,

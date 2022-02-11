@@ -37,11 +37,11 @@ class GenreController extends Controller
      */
     public function store(GenreRequest $request)
     {
-        $faker = \Faker\Factory::create(1);
-        $author = genre::create([
-            'name' => $faker->name
+        $genreName = strtolower($request->input('name'));
+        $genre = genre::firstOrCreate([
+            'name' => $genreName,
         ]);
-        return new GenreResource($author);;
+        return new GenreResource($genre);;
     }
 
     /**
@@ -75,8 +75,9 @@ class GenreController extends Controller
      */
     public function update(GenreRequest $request, genre $genre)
     {
+        $genreName = strtolower($request->input('name'));
         $genre->update([
-            'name' => $request->input('name')
+            'name' => $genreName
         ]);
 
         return new GenreResource($genre);

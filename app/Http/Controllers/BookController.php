@@ -38,38 +38,17 @@ class BookController extends Controller
      */
     public function store(BookRequest $request)
     {
-        $faker = \Faker\Factory::create(1);
-        $author = \App\Models\author::pluck('id')->first();
-        $publisher = \App\Models\publisher::pluck('id')->first();
+        $date = $request->input('release_date');
+        $date = date('Y-m-d', strtotime($date));
 
         $book = book::create([
-            'name' => $faker->domainName,
-            'author_id' => $author,
-            'publisher_id' => $publisher,
-            'price' => $faker->numberBetween(1,500),
-            'release_date' => $faker->date,
-            'pages' => $faker->numberBetween(1,500),
+            'name' => $request->input('name'),
+            'author_id' => $request->input('author_id'),
+            'publisher_id' => $request->input('publisher_id'),
+            'price' =>  $request->input('price'),
+            'release_date' => $date,
+            'pages' =>  $request->input('pages'),
         ]);
-
-        $genreNames = $request->input('genre');
-        $genreNames = explode(',', $genreNames);
-        $genreIds = [];
-        foreach ($genreNames as $genreName) {
-            $genreName = trim(strtolower($genreName));
-            // Creates genre to book
-            $genre = genre::firstOrCreate([
-                'name'=>$genreName
-            ]);
-            $genreIds[] = $genre->id;
-        }
-
-        foreach ($genreIds as $genreId) {
-            // Creates junction between book and genre
-            BookGenre::updateOrCreate([
-                'book_id'=>$book->id,
-                'genre_id'=>$genreId,
-            ]);
-        }
 
 
         return new BookResource($book);
@@ -106,39 +85,17 @@ class BookController extends Controller
      */
     public function update(BookRequest $request, book $book)
     {
-        $author = \App\Models\author::pluck('id')->first();
-        $publisher = \App\Models\publisher::pluck('id')->first();
+        $date = $request->input('release_date');
+        $date = date('Y-m-d', strtotime($date));
 
         $book->update([
             'name' => $request->input('name'),
-            'author_id' => $author,
-            'publisher_id' => $publisher,
+            'author_id' => $request->input('author_id'),
+            'publisher_id' => $request->input('publisher_id'),
             'price' =>  $request->input('price'),
-            'release_date' =>  $request->input('release_date'),
+            'release_date' => $date,
             'pages' =>  $request->input('pages'),
         ]);
-
-        $genreNames = $request->input('genre');
-        $genreNames = explode(',', $genreNames);
-        $genreIds = [];
-        foreach ($genreNames as $genreName) {
-            $genreName = trim(strtolower($genreName));
-            // Creates genre to book
-            $genre = genre::firstOrCreate([
-                'name'=>$genreName
-            ]);
-            $genreIds[] = $genre->id;
-        }
-
-        BookGenre::where('book_id', $book->id)->delete();
-        foreach ($genreIds as $genreId) {
-
-            // Creates junction between book and genre
-            BookGenre::Create([
-                'book_id'=>$book->id,
-                'genre_id'=>$genreId,
-            ]);
-        }
 
         return new BookResource($book);
     }

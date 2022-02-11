@@ -26,12 +26,11 @@ class BookRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'author' => 'required|exists:authors,name|max:255',
-            'publisher' => 'required|exists:publishers,name|max:255',
-            'price' => 'required|numeric|digits_between:1,11',
-            'release_date' => 'required|date',
-            'pages' => 'required|integer|digits_between:1,11',
-            'genre' => [(new Delimited('max:255'))],
+            'author_id' => 'required|exists:authors,id|numeric|digits_between:1,11',
+            'publisher_id' => 'required|exists:publishers,id|numeric|digits_between:1,11',
+            'price' => 'required|numeric|max:999999.99',
+            'release_date' => 'required|date|max:255',/*|date_format:Y-d-m*/
+            'pages' => 'required|integer|digits_between:1,9',
         ];
     }
 }

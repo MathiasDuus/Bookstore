@@ -38,9 +38,8 @@ class PublisherController extends Controller
      */
     public function store(PublisherRequest $request)
     {
-        $faker = \Faker\Factory::create(1);
         $publisher = publisher::create([
-            'name' => $faker->company
+            'name' => $request->input('name')
         ]);
         return new PublisherResource($publisher);
     }

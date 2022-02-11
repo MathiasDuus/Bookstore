@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\author;
-use Illuminate\Http\Request;
 use App\Http\Resources\AuthorResource;
 use App\Http\Requests\AuthorRequest;
-use Illuminate\Support\Facades\Auth;
 
 class AuthorController extends Controller
 {

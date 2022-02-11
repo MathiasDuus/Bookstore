@@ -37,11 +37,10 @@ class StoreController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $faker = \Faker\Factory::create(1);
         $address = \App\Models\address::pluck('id')->first();
 
         $store = store::create([
-            'name' => $faker->colorName,
+            'name' => $request->input('name'),
             'address_id' => $address,
         ]);
 

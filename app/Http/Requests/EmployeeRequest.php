@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class EmployeeRequest extends FormRequest
 {
@@ -26,7 +27,8 @@ class EmployeeRequest extends FormRequest
         return [
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
-            'mail' => 'required|email:rfc|unique:employees|max:255',/*TODO: Add "dns" to email rule*/
+            'mail' => [Rule::unique('employees')->ignore($this->employee)->where('mail', $this->mail),
+                'required', 'email:rfc,dns', 'max:255'],
             'store_id' => 'required|exists:stores,id|numeric|digits_between:1,11',
             'department' => 'required|exists:departments,name|max:255',
         ];

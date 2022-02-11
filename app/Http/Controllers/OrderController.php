@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Models\order;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -37,20 +38,12 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
-        // TODO: Create order line entry/ies, when making an order
-        // TODO: when order line is created subtract amount of books in order from depot, check if depot>=order
-        $faker = \Faker\Factory::create(1);
-        $address = \App\Models\address::pluck('id')->first();
-        $status =  [
-            "Order Recieved",
-            "In transit",
-            "Delivered"
-        ];
-
+        $date = $request->input('date');
+        $date = date('Y-m-d', strtotime($date));
         $order = order::create([
-            'address_id' => $address,
-            'date' => $faker->date,
-            'status' => $faker->randomElement($status),
+            'address_id' => $request->input('address_id'),
+            'date' => $date,
+            'status' => $request->input('status'),
         ]);
 
         return new OrderResource($order);
@@ -87,9 +80,11 @@ class OrderController extends Controller
      */
     public function update(OrderRequest $request, order $order)
     {
+        $date = $request->input('date');
+        $date = date('Y-m-d', strtotime($date));
         $order->update([
             'address_id' => $request->input('address_id'),
-            'date' => $request->input('date'),
+            'date' => $date,
             'status' => $request->input('status'),
         ]);
 

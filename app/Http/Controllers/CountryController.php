@@ -37,10 +37,9 @@ class CountryController extends Controller
      */
     public function store(CountryRequest $request)
     {
-        $faker = \Faker\Factory::create(1);
         $country = country::create([
-            'abbreviation' => $faker->countryCode,
-            'name' => $faker->country
+            'abbreviation' => $request->input('author'),
+            'name' => $request->input('author'),
         ]);
 
         return new CountryResource($country);

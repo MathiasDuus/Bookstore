@@ -36,13 +36,10 @@ class AddressController extends Controller
      */
     public function store(AddressRequest $request)
     {
-        $faker = \Faker\Factory::create(1);
-        $postal = \App\Models\postal::pluck('id')->first();
-        $customer = \App\Models\customer::pluck('id')->first();
-
+        $customer = \App\Models\customer::where('mail', $request->input('mail'))->pluck('id')->first();
         $address = address::create([
-            'postal_id' => $postal,
-            'street' => $faker->city(),
+            'postal_id' => $request->input('postal_id'),
+            'street' => $request->input('street'),
             'customer_id' => $customer,
         ]);
 

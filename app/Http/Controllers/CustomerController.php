@@ -37,12 +37,12 @@ class CustomerController extends Controller
      */
     public function store(CustomerRequest $request)
     {
-        $faker = \Faker\Factory::create(1);
+        $password = password_hash($request->input('password'),PASSWORD_DEFAULT );
         $customer = customer::create([
-            'first_name' => $faker->firstName(),
-            'last_name' => $faker->lastName(),
-            'mail' => $faker->unique()->safeEmail(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'mail' => $request->input('mail'),
+            'password' => $password,
             'active' => true,
         ]);
 
@@ -80,11 +80,12 @@ class CustomerController extends Controller
      */
     public function update(CustomerRequest $request, customer $customer)
     {
+        $password = password_hash($request->input('password'),PASSWORD_DEFAULT );
         $customer->update([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
             'mail' => $request->input('mail'),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password, Should be changed to input when in production
+            'password' => $password,
             'active' => true,
         ]);
 

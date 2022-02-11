@@ -37,12 +37,11 @@ class PostalController extends Controller
      */
     public function store(PostalRequest $request)
     {
-        $faker = \Faker\Factory::create(1);
-        $country = \App\Models\country::where('name',$faker->country/*$request->input('country')*/)->pluck('abbreviation')->first();
+        $country = \App\Models\country::where('name',$request->input('country'))->pluck('abbreviation')->first();
 
         $postal = postal::create([
-            'post_code' => $faker->postcode(),
-            'city' => $faker->city(),
+            'post_code' => $request->input('post_code'),
+            'city' => $request->input('city'),
             'country_id' => $country,
         ]);
 

@@ -37,10 +37,8 @@ class OrderLineController extends Controller
      */
     public function store(OrderLineRequest $request)
     {
-        $faker = \Faker\Factory::create(1);
-        $order = \App\Models\order::pluck('id')->first();
-        $book = \App\Models\book::first();
-        $quantity = $faker->numberBetween(0, 50);
+        $book = \App\Models\book::where('id', $request->input('book_id'))->first();
+
         if ($request->input('price') !== null) {
             $price = $request->input('price');
         } else {
@@ -48,9 +46,9 @@ class OrderLineController extends Controller
         }
 
         $orderLine = OrderLine::create([
-            'order_id' => $order,
+            'order_id' => $request->input('order_id'),
             'book_id' => $book->id,
-            'quantity' => $quantity,
+            'quantity' => $request->input('quantity'),
             'price' => $price,
         ]);
 
@@ -88,9 +86,7 @@ class OrderLineController extends Controller
      */
     public function update(Request $request, OrderLine $orderLine)
     {
-        $order = \App\Models\order::where('id', $request->input('order_id'))->first();
         $book = \App\Models\book::where('id', $request->input('book_id'))->first();
-        $quantity = $request->input('quantity');
 
         if ($request->input('price') !== null) {
             $price = $request->input('price');
@@ -99,9 +95,9 @@ class OrderLineController extends Controller
         }
 
         $orderLine->update([
-            'order_id' => $order->id,
+            'order_id' => $request->input('order_id'),
             'book_id' => $book->id,
-            'quantity' => $quantity,
+            'quantity' => $request->input('quantity'),
             'price' => $price,
         ]);
 
