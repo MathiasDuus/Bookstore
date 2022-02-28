@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class postal extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'post_code',
         'country_id',
@@ -21,7 +22,7 @@ class postal extends Model
 
     public function address()
     {
-        return $this->belongsTo(address::class, "postal_id","id");
+        return $this->belongsTo(address::class, "id","postal_id");
     }
 
 }

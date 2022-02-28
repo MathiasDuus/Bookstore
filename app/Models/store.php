@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class store extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         "address_id",
         "name"
@@ -20,14 +22,11 @@ class store extends Model
 
     public function depot()
     {
-        return $this->belongsTo(depot::class, "store_id","id");
+        return $this->belongsTo(depot::class, "id","store_id");
     }
 
     public function employee()
     {
-        return $this->belongsTo(employee::class, "store_id","id");
+        return $this->belongsTo(employee::class, "id","store_id");
     }
-
-
-    use HasFactory;
 }

@@ -7,15 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class department extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'name'
     ];
+
     public $timestamps = false;
 
     public function employee()
     {
-        return $this->belongsTo(employee::class,"department_id", "id");
+        return $this->belongsTo(employee::class,"id", "department_id");
     }
-
-    use HasFactory;
 }

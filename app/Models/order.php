@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class order extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         "address_id",
         "date",
@@ -20,8 +22,6 @@ class order extends Model
 
     public function orderLine()
     {
-        return $this->belongsTo(OrderLine::class, "order_id", "id");
+        return $this->belongsTo(OrderLine::class, "id", "order_id");
     }
-
-    use HasFactory;
 }

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class employee extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         "first_name",
         "last_name",
@@ -24,7 +26,4 @@ class employee extends Model
     {
         return $this->hasOne(department::class, "id","department_id");
     }
-
-
-    use HasFactory;
 }

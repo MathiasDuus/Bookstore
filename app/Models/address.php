@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class address extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'postal_id',
         'street',
@@ -34,5 +36,4 @@ class address extends Model
         return $this->belongsTo(store::class, "id", "address_id");
     }
 
-    use HasFactory;
 }

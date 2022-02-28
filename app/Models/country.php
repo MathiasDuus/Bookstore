@@ -7,25 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class country extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'abbreviation',
         'name',
     ];
+
     public $timestamps = false;
-
-    public function postal()
-    {
-        return $this->belongsTo(postal::class, "country_id", "abbreviation");
-        /*
-           return $this->belongsToMany(postal::class)
-            ->as('country_id')
-            ->withTimestamps();
-        */
-    }
-
     protected $primaryKey = "abbreviation";
     public $incrementing = false;
     protected $keyType = "string";
 
-    use HasFactory;
+    public function postal()
+    {
+        return $this->belongsTo(postal::class, "abbreviation", "country_id");
+    }
+
 }

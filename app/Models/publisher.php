@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class publisher extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'name'
     ];
@@ -14,7 +16,6 @@ class publisher extends Model
 
     public function book()
     {
-        return $this->belongsTo(book::class, "publisher_id","id");
+        return $this->belongsTo(book::class, "id","publisher_id");
     }
-    use HasFactory;
 }

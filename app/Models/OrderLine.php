@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderLine extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         "order_id",
         "book_id",
@@ -23,6 +25,4 @@ class OrderLine extends Model
     {
         return $this->hasOne(book::class, "id","book_id");
     }
-
-    use HasFactory;
 }

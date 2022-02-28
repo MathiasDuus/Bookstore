@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class book extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'name',
         'author_id',
@@ -40,13 +42,12 @@ class book extends Model
 
     public function depot()
     {
-        return $this->belongsTo(depot::class,"book_id", "id");
+        return $this->belongsTo(depot::class,"id", "book_id");
     }
 
     public function orderLine()
     {
-        return $this->belongsTo(OrderLine::class,"book_id","id");
+        return $this->belongsTo(OrderLine::class,"id","book_id");
     }
 
-    use HasFactory;
 }

@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class BookGenre extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'book_id',
         'genre_id'
     ];
+
     public $timestamps = false;
 
     public function book()
@@ -22,7 +24,4 @@ class BookGenre extends Model
     {
         return $this->hasOne(genre::class, "id", "genre_id");
     }
-
-
-    use HasFactory;
 }

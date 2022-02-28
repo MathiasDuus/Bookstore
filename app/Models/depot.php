@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class depot extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'book_id',
         'amount',
@@ -23,6 +25,4 @@ class depot extends Model
     {
         return $this->hasOne(store::class, "id", "store_id");
     }
-
-    use HasFactory;
 }
