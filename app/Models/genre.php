@@ -18,8 +18,16 @@ class genre extends Model
       'laravel_through_key'
     ];
 
+
     public function bookGenre()
     {
-        return $this->belongsTo(BookGenre::class, "id", "genre_id");
+        return $this->hasManyThrough(
+            '\App\Models\book',
+            '\App\Models\BookGenre',
+            'genre_id',
+            'id',
+            'id',
+            'book_id'
+        );
     }
 }

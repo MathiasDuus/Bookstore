@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\book;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PublisherResource extends JsonResource
@@ -19,7 +20,8 @@ class PublisherResource extends JsonResource
             'type'=>'Publisher',
             'attributes'=>[
                 'name'=>$this->name
-            ]
+            ],
+            'book' => BookResource::collection(book::where('publisher_id', $this->id)->get()),
         ];
     }
 }

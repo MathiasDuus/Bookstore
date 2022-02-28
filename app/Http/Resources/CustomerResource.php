@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\address;
+use App\Models\order;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CustomerResource extends JsonResource
@@ -14,8 +16,9 @@ class CustomerResource extends JsonResource
      */
     public function toArray($request)
     {
-        foreach ($this->address->where('customer_id',$this->id)->get('id') as $id) {
-            $temp = OrderResource::collection($this->address->order->where('address_id', $id['id'])->get());
+        $order=[];
+        foreach (address::where('customer_id',$this->id)->get('id') as $id) {
+            $temp = OrderResource::collection(order::where('address_id', $id['id'])->get());
 
             if ($temp->isNotEmpty()) {
                 $order[] = $temp;
@@ -31,7 +34,7 @@ class CustomerResource extends JsonResource
                 'mail' => $this->mail,
                 'password' => $this->password,
                 'active' => (bool) $this->active,
-                'addresses' => AddressResource::collection($this->address->where('customer_id',$this->id)->get()),
+                'addresses' => AddressResource::collection(address::where('customer_id',$this->id)->get()),
                 'orders' => $order,
             ]
         ];

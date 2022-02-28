@@ -20,7 +20,19 @@ class DepotResource extends JsonResource
             'attributes'=>[
                 'amount'=>$this->amount,
                 'book'=>new BookResource($this->book),
-                'store'=> new StoreResource($this->store),
+                'store'=>[
+                    'id'=>(string)$this->store->id,
+                    'name'=>$this->store->name,
+                    'address'=> [
+                        'street' => $this->store->address->street,
+                        'postal' => [
+                            'id' => (string)$this->store->address->postal->id,
+                            'post_code' => $this->store->address->postal->post_code,
+                            'city' => $this->store->address->postal->city,
+                            'country' => $this->store->address->postal->country->name,
+                        ],
+                    ],
+                ],
             ]
         ];
     }

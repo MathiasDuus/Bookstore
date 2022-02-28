@@ -19,7 +19,8 @@ class GenreResource extends JsonResource
             'type'=>'genre',
             'attributes'=>[
                 'name'=>$this->name
-            ]
+            ],
+            'book' => BookResource::collection($this->BookGenre),
         ];
     }
 }

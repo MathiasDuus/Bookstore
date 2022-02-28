@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\OrderLine;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrderResource extends JsonResource
@@ -33,6 +34,7 @@ class OrderResource extends JsonResource
                     'city' => $this->address->postal->city,
                     'country' => $this->address->postal->country->name,
                 ],
+                'order_line' => OrderLineResource::collection(OrderLine::where('order_id', $this->id)->get()),
             ]
         ];
     }
