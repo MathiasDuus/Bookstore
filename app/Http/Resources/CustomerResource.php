@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use function GuzzleHttp\Promise\all;
 
 class CustomerResource extends JsonResource
 {
@@ -15,18 +14,25 @@ class CustomerResource extends JsonResource
      */
     public function toArray($request)
     {
-        //TODO: gør så amn kan se alle brugerens ordre og addresser
+        foreach ($this->address->where('customer_id',$this->id)->get('id') as $id) {
+            $temp = OrderResource::collection($this->address->order->where('address_id', $id['id'])->get());
+
+            if ($temp->isNotEmpty()) {
+                $order[] = $temp;
+            }
+        }
+
         return [
-            'id'=>(string)$this->id,
-            'type'=>'Customer',
-            'attributes'=>[
-                'first_name'=>$this->first_name,
-                'last_name'=>$this->last_name,
-                'mail'=>$this->mail,
-                'password'=>$this->password,
-                'active'=>$this->active,
-                'address' => $this->address,
-                'orders' => OrderResource::collection($this->address->order->all()), // Not work but almost
+            'id' => (string)$this->id,
+            'type' => 'Customer',
+            'attributes' => [
+                'first_name' => $this->first_name,
+                'last_name' => $this->last_name,
+                'mail' => $this->mail,
+                'password' => $this->password,
+                'active' => (bool) $this->active,
+                'addresses' => AddressResource::collection($this->address->where('customer_id',$this->id)->get()),
+                'orders' => $order,
             ]
         ];
     }
