@@ -41,7 +41,7 @@ class CustomerController extends Controller
         $customer = customer::create([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
-            'mail' => $request->input('mail'),
+            'email' => $request->input('email'),
             'password' => $password,
             'active' => true,
         ]);
@@ -84,7 +84,7 @@ class CustomerController extends Controller
         $customer->update([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
-            'mail' => $request->input('mail'),
+            'email' => $request->input('email'),
             'password' => $password,
             'active' => true,
         ]);

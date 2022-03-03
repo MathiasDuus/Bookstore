@@ -20,7 +20,7 @@ class EmployeeResource extends JsonResource
             'attributes'=>[
                 'first_name'=>$this->first_name,
                 'last_name'=>$this->last_name,
-                'mail'=>$this->mail,
+                'email'=>$this->email,
                 'department'=> $this->department->name,
                 'store'=> $this->store->name,
             ]

@@ -31,8 +31,7 @@ class CustomerResource extends JsonResource
             'attributes' => [
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
-                'mail' => $this->mail,
-                'password' => $this->password,
+                'email' => $this->email,
                 'active' => (bool) $this->active,
                 'addresses' => AddressResource::collection(address::where('customer_id',$this->id)->get()),
                 'orders' => $order,

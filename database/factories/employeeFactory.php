@@ -18,8 +18,9 @@ class employeeFactory extends Factory
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
-            'mail' => $this->faker->unique()->email(),
+            'email' => $this->faker->unique()->email(),
             'store_id' => $this->faker->randomElement($store),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'department_id' => $this->faker->randomElement($department),
         ];
     }

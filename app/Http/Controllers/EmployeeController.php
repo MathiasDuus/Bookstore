@@ -42,7 +42,8 @@ class EmployeeController extends Controller
         $employee = employee::create([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
-            'mail' => $request->input('mail'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
             'store_id' => $request->input('store_id'),
             'department_id' => $department,
         ]);
@@ -85,7 +86,8 @@ class EmployeeController extends Controller
         $employee->update([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
-            'mail' => $request->input('mail'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
             'store_id' => $request->input('store_id'),
             'department_id' => $department,
         ]);

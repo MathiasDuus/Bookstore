@@ -28,7 +28,7 @@ class OrderLineResource extends JsonResource
                         'id' => (string)$this->order->address->customer->id,
                         'first_name' => $this->order->address->customer->first_name,
                         'last_name' => $this->order->address->customer->last_name,
-                        'mail' => $this->order->address->customer->mail,
+                        'email' => $this->order->address->customer->email,
                     ],
                     'address' => [
                         'id' => (string)$this->order->address->id,

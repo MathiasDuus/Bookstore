@@ -15,7 +15,6 @@ class address extends Model
         'customer_id'
     ];
 
-    // TODO: rework all keys, in all models
     public function postal()
     {
         return $this->hasOne(postal::class, "id", "postal_id");

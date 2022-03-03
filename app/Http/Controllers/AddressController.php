@@ -36,7 +36,7 @@ class AddressController extends Controller
      */
     public function store(AddressRequest $request)
     {
-        $customer = \App\Models\customer::where('mail', $request->input('mail'))->pluck('id')->first();
+        $customer = \App\Models\customer::where('email', $request->input('email'))->pluck('id')->first();
         $address = address::create([
             'postal_id' => $request->input('postal_id'),
             'street' => $request->input('street'),
@@ -77,7 +77,7 @@ class AddressController extends Controller
      */
     public function update(AddressRequest $request, address $address)
     {
-        $customer = \App\Models\customer::where('mail', $request->input('mail'))->pluck('id')->first();
+        $customer = \App\Models\customer::where('email', $request->input('email'))->pluck('id')->first();
 
         $address->update([
             'postal_id' => $request->input('postal_id'),

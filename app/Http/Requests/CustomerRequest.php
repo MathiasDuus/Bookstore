@@ -28,7 +28,7 @@ class CustomerRequest extends FormRequest
         return [
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
-            'mail' => [Rule::unique('customers')->ignore($this->customer)->where('mail', $this->mail),
+            'email' => [Rule::unique('customers')->ignore($this->customer)->where('email', $this->email),
                 'required', 'email:rfc,dns', 'max:255'],
             'password' => ['required', 'confirmed', Password::min(8)
                 ->letters()

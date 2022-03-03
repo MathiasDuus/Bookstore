@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class EmployeeRequest extends FormRequest
 {
@@ -27,8 +28,14 @@ class EmployeeRequest extends FormRequest
         return [
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
-            'mail' => [Rule::unique('employees')->ignore($this->employee)->where('mail', $this->mail),
+            'email' => [Rule::unique('employees')->ignore($this->employee)->where('email', $this->email),
                 'required', 'email:rfc,dns', 'max:255'],
+            'password' => ['required', 'confirmed', Password::min(8)
+                ->letters()
+                ->mixedCase()
+                ->numbers()
+                ->symbols()
+            ],
             'store_id' => 'required|exists:stores,id|numeric|digits_between:1,11',
             'department' => 'required|exists:departments,name|max:255',
         ];

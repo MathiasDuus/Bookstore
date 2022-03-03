@@ -29,7 +29,7 @@ class AddressResource extends JsonResource
                     'id' => (string)$this->customer->id,
                     'first_name' => $this->customer->first_name,
                     'last_name' => $this->customer->last_name,
-                    'mail' => $this->customer->mail,
+                    'email' => $this->customer->email,
                     'active' => (bool)$this->customer->active,
                 ],
             ]

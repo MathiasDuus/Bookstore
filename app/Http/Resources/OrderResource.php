@@ -25,7 +25,7 @@ class OrderResource extends JsonResource
                     'id'=>(string)$this->address->customer->id,
                     'first_name'=>$this->address->customer->first_name,
                     'last_name'=>$this->address->customer->last_name,
-                    'mail'=>$this->address->customer->mail,
+                    'email'=>$this->address->customer->email,
                 ],
                 'address' => [
                     'id' => (string)$this->address->id,
