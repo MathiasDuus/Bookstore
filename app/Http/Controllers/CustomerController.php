@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+//    function __construct()
+//    {
+//        $this->middleware('auth:customer_api', ['scopes: customer'])->only(['show']);
+//        $this->middleware('auth:employee_api', ['scopes: employee']);
+//    }
     /**
      * Display a listing of the resource.
      *

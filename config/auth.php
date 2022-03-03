@@ -13,15 +13,15 @@ return [
     |
     */
 
-//    'defaults' => [
-//        'guard' => 'web',
-//        'passwords' => 'users',
-//    ],
-
     'defaults' => [
-        'guard' => 'api',
-        'passwords' => 'customers',
+        'guard' => 'web',
+        'passwords' => 'users',
     ],
+
+//    'defaults' => [
+//        'guard' => 'api',
+//        'passwords' => 'customers',
+//    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -51,20 +51,7 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-//        'user' => [
-//            'driver' => 'session',
-//            'provider' => 'users',
-//        ],
-//        'user-api'=>[
-//            'driver'=>'passport',
-//            'provider'=>'users',
-//            'hash'=>false,
-//        ],
-//        'customer' => [
-//            'driver' => 'session',
-//            'provider' => 'customers',
-//        ],
-        'api'=>[
+        'customer_api'=>[
             'driver'=>'passport',
             'provider'=>'customers',
             'hash'=>false,
@@ -115,10 +102,10 @@ return [
 //        ],
 
     'providers' => [
-//        'users' => [l
-//            'driver' => 'eloquent',
-//            'model' => App\Models\User::class,
-//        ],
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
+        ],
         'customers' => [
             'driver' => 'eloquent',
             'model' => App\Models\customer::class,
