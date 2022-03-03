@@ -33,6 +33,9 @@ Route::apiResource('/bookGenre', \App\Http\Controllers\BookGenreController::clas
 
 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->get('/customer_token_test', function (Request $request) {
+    return "Customer token works, Good job :)";
+});
+Route::middleware('auth:employee_api')->get('/employee_token_test', function (Request $request) {
+    return "Employee token works, Good job :)";
 });

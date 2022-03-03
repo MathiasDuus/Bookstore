@@ -13,9 +13,14 @@ return [
     |
     */
 
+//    'defaults' => [
+//        'guard' => 'web',
+//        'passwords' => 'users',
+//    ],
+
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'api',
+        'passwords' => 'customers',
     ],
 
     /*
@@ -35,12 +40,56 @@ return [
     |
     */
 
+//    'guards' => [
+//        'web' => [
+//            'driver' => 'session',
+//            'provider' => 'users',
+//        ],
+//    ],
     'guards' => [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
+//        'user' => [
+//            'driver' => 'session',
+//            'provider' => 'users',
+//        ],
+//        'user-api'=>[
+//            'driver'=>'passport',
+//            'provider'=>'users',
+//            'hash'=>false,
+//        ],
+//        'customer' => [
+//            'driver' => 'session',
+//            'provider' => 'customers',
+//        ],
+        'api'=>[
+            'driver'=>'passport',
+            'provider'=>'customers',
+            'hash'=>false,
+        ],
+        'employee_api'=>[
+            'driver'=>'passport',
+            'provider'=>'employees',
+            'hash'=>false,
+        ],
+
     ],
+//        'web' => [
+//            'driver' => 'session',
+//            'provider' => 'users',
+//        ],
+//        'customer' => [
+//            'driver' => 'session',
+//            'provider' => 'customers',
+//        ],
+//        'api' => [
+//            'driver' => 'passport',
+//            'provider' => 'customers',
+//            'hash' => false,
+//        ],
+//    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -59,10 +108,24 @@ return [
     |
     */
 
+//    'providers' => [
+//        'users' => [
+//            'driver' => 'eloquent',
+//            'model' => App\Models\User::class,
+//        ],
+
     'providers' => [
-        'users' => [
+//        'users' => [l
+//            'driver' => 'eloquent',
+//            'model' => App\Models\User::class,
+//        ],
+        'customers' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\customer::class,
+        ],
+        'employees' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\employee::class,
         ],
 
         // 'users' => [
