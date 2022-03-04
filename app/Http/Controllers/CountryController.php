@@ -38,8 +38,8 @@ class CountryController extends Controller
     public function store(CountryRequest $request)
     {
         $country = country::create([
-            'abbreviation' => $request->input('author'),
-            'name' => $request->input('author'),
+            'abbreviation' => $request->input('abbreviation'),
+            'name' => $request->input('name'),
         ]);
 
         return new CountryResource($country);
