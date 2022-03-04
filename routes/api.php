@@ -2,8 +2,22 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+// Controllers
+use \App\Http\Controllers\AuthorController;
+use \App\Http\Controllers\GenreController;
+use \App\Http\Controllers\PublisherController;
+use \App\Http\Controllers\DepartmentController;
 use \App\Http\Controllers\CustomerController;
-use App\Http\Controllers\BookController;
+use \App\Http\Controllers\CountryController;
+use \App\Http\Controllers\PostalController;
+use \App\Http\Controllers\AddressController;
+use \App\Http\Controllers\BookController;
+use \App\Http\Controllers\OrderController;
+use \App\Http\Controllers\OrderLineController;
+use \App\Http\Controllers\StoreController;
+use \App\Http\Controllers\DepotController;
+use \App\Http\Controllers\EmployeeController;
+use \App\Http\Controllers\BookGenreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,8 +56,37 @@ Route::group(['middleware' => ['auth:customer_api,employee_api']], function () {
 
 
 # Unprotected routes
+// Books
 Route::get('book',[BookController::class,'index'])->name('book.index');
 Route::get('book/{book}',[BookController::class,'show'])->name('book.show');
+// Authors
+Route::get('author',[AuthorController::class,'index'])->name('author.index');
+Route::get('author/{author}',[AuthorController::class,'show'])->name('author.show');
+// Genres
+Route::get('genre',[GenreController::class,'index'])->name('genre.index');
+Route::get('genre/{genre}',[GenreController::class,'show'])->name('genre.show');
+// Publishers
+Route::get('publisher',[PublisherController::class,'index'])->name('publisher.index');
+Route::get('publisher/{publisher}',[PublisherController::class,'show'])->name('publisher.show');
+// Countries
+Route::get('country',[CountryController::class,'index'])->name('country.index');
+Route::get('country/{country}',[CountryController::class,'show'])->name('country.show');
+// Depots
+Route::get('depot',[DepotController::class,'index'])->name('depot.index');
+Route::get('depot/{depot}',[DepotController::class,'show'])->name('depot.show');
+// BookGenres
+Route::get('bookGenre',[BookGenreController::class,'index'])->name('bookGenre.index');
+Route::get('bookGenre/{bookGenre}',[BookGenreController::class,'show'])->name('bookGenre.show');
+
+
+
+
+Route::middleware('auth:customer_api')->get('/customer_token_test', function (Request $request) {
+    return "Customer token works, Good job :)";
+})->name('Customer token test');
+Route::middleware('auth:employee_api')->get('/employee_token_test', function (Request $request) {
+    return "Employee token works, Good job :)";
+})->name('Employee token test');
 
 
 // API ROUTES
@@ -65,11 +108,6 @@ Route::get('book/{book}',[BookController::class,'show'])->name('book.show');
 
 
 
-Route::middleware('auth:customer_api')->get('/customer_token_test', function (Request $request) {
-    return "Customer token works, Good job :)";
-})->name('Customer token test');
-Route::middleware('auth:employee_api')->get('/employee_token_test', function (Request $request) {
-    return "Employee token works, Good job :)";
-})->name('Employee token test');
+
 
 
