@@ -31,6 +31,7 @@ class BookRequest extends FormRequest
             'price' => 'required|numeric|max:999999.99',
             'release_date' => 'required|date|max:255',/*|date_format:Y-d-m*/
             'pages' => 'required|integer|digits_between:1,9',
+            'cover' => 'max:255',
         ];
     }
 }

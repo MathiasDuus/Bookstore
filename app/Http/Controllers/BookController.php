@@ -48,6 +48,7 @@ class BookController extends Controller
             'price' =>  $request->input('price'),
             'release_date' => $date,
             'pages' =>  $request->input('pages'),
+            'cover' =>  $request->input('cover'),
         ]);
 
 
@@ -95,6 +96,7 @@ class BookController extends Controller
             'price' =>  $request->input('price'),
             'release_date' => $date,
             'pages' =>  $request->input('pages'),
+            'cover' =>  $request->input('cover'),
         ]);
 
         return new BookResource($book);

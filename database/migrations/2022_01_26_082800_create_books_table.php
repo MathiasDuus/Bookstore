@@ -21,6 +21,7 @@ class CreateBooksTable extends Migration
             $table->decimal("price");
             $table->date("release_date");
             $table->integer("pages");
+            $table->string("cover")->nullable();
             $table->timestamps();
         });
     }
