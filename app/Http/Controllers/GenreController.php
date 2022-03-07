@@ -38,7 +38,7 @@ class GenreController extends Controller
     public function store(GenreRequest $request)
     {
         $genreName = strtolower($request->input('name'));
-        $genre = genre::firstOrCreate([
+        $genre = genre::create([
             'name' => $genreName,
         ]);
         return new GenreResource($genre);;

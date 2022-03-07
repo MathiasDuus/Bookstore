@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CountryRequest extends FormRequest
 {
@@ -33,7 +34,8 @@ class CountryRequest extends FormRequest
         }
         else {
             return [
-                'name' => 'required|unique:countries|max:255'
+                'name' => [Rule::unique('countries')->ignore($this->country)->where('name', $this->country),
+                    'required', 'max:255']
             ];
         }
     }

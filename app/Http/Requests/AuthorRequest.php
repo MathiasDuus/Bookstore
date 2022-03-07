@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AuthorRequest extends FormRequest
 {
@@ -24,7 +25,8 @@ class AuthorRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:authors|max:255'
+            'name' => [Rule::unique('authors')->ignore($this->author)->where('name', $this->name),
+                'required', 'max:255']
         ];
     }
 }
