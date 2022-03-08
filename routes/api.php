@@ -58,6 +58,7 @@ Route::group(['middleware' => ['auth:customer_api,employee_api']], function () {
 # Unprotected routes
 // Books
 Route::get('book',[BookController::class,'index'])->name('book.index');
+Route::get('book/amount/{amount}',[BookController::class,'index'])->name('book.amount');
 Route::get('book/{book}',[BookController::class,'show'])->name('book.show');
 // Authors
 Route::get('author',[AuthorController::class,'index'])->name('author.index');

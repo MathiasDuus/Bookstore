@@ -15,9 +15,13 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($amount = null)
     {
-        return BookResource::collection(book::all());
+        if ($amount != null){
+            return BookResource::collection(book::take($amount)->get());
+        }else{
+            return BookResource::collection(book::all());
+        }
     }
 
     /**
