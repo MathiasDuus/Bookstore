@@ -2,9 +2,10 @@ html,
 body {
     margin:0;
     padding:0;
+    background-color: dimgrey;
     font-size: 1rem;
     line-height: 1.5;
-    height: 100vh;
+    height: calc(100vh - 40px);
 }
 
 body{
@@ -88,7 +89,7 @@ a{
     width: fit-content;
 }
 
-.book-title{
+.movie-title{
     color: black;
     text-align-last: center;
     font-weight: bold;
