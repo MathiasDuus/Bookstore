@@ -22,6 +22,7 @@ class bookFactory extends Factory
             'price' => rand(50,1000),
             'release_date' => $this->faker->date(),
             'pages' => rand(1,500),
+            'cover' => $this->faker->imageUrl(),
         ];
     }
 }

@@ -8,12 +8,12 @@
                 <h1>Books</h1>
             </div>
             <div v-for="genre in genres">
-                <div class="row">
+                <div class="row" v-if="genre.book.length>0">
                         <h2 class="genre-title" @click="showGenre(genre.id)">{{genre.attributes.name}}</h2>
                         <h2 class="genre-count ms-auto">{{genre.book.length}}</h2>
                 </div>
                 <div class="row">
-                        <div v-for="(book, index) in genre.book" class="col-2 card-margin" @click="showProgram(book.id)">
+                        <div v-for="(book, index) in genre.book" class="col-2 card-margin" @click="showBook(book.id)">
                             <div class="card" v-if="index <=5">
                                 <img class="card-img card-image" src="" @error="defaultImage" alt="book_cover">
                                 <h3 class="book-title">{{ book.attributes.name }}</h3>
@@ -28,7 +28,6 @@
 </template>
 
 <script>
-// import axios from 'axios';
 import img from '../../pictures/covers/lorem_cover.png'
 
 export default {
@@ -43,16 +42,11 @@ export default {
         defaultImage(event){
             event.target.src = img
         },
-        showGenre(id, event) {
-            // `this` inside methods points to the current active instance
-            alert(`Hello ${id}!`)
-            // `event` is the native DOM event
-            if (event) {
-                alert(event.target.tagName)
-            }
+        showGenre(id) {
+            this.$router.push({path: '/genre/'+id})
         },
-        showProgram(id){
-            this.$router.push({path: '/about'})
+        showBook(id){
+            this.$router.push({path: '/book/'+id})
         },
     },
 

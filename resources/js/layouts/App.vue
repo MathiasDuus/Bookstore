@@ -43,16 +43,13 @@
 
 
     <div class="container">
+
         <router-view v-slot="{ Component }">
             <keep-alive>
-                <component :is="Component" :key="$route.params.id"></component>
+                <component :is="Component" ></component>
             </keep-alive>
         </router-view>
-<!--        <router-view v-slot="{ Component }">-->
-<!--            <keep-alive include="Home">-->
-<!--                <component :is="Component" />-->
-<!--            </keep-alive>-->
-<!--        </router-view>-->
+
     </div>
 
 
@@ -60,11 +57,4 @@
 
 <script>
 
-export default {
-    // watch: {
-    //     $route() {
-    //         $("#navbarCollapse").collapse("hide");
-    //     },
-    // },
-};
 </script>
