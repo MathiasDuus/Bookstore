@@ -7,7 +7,7 @@
                     id="logo"
                     :to="{ name: 'home' }"
                 >
-                    <img class="navbar-img" src="../../pictures/logo.png" alt="Undercover books logo"/>
+                    <img class="navbar-img" :src="'../../images/logo.png'" alt="Undercover books logo"/>
                     <h1 class="navbar-brand">Undercover Books</h1>
                 </router-link>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,6 +42,15 @@
                                     :to="{ name: 'cart' }"
                                 >
                                     <p v-text="'cart ('+itemsInCart+')'"></p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link
+                                    class="nav-link"
+                                    data-toggle="collapse"
+                                    :to="{ name: 'login' }"
+                                >
+                                    Login
                                 </router-link>
                             </li>
                         </ul>
