@@ -7,7 +7,8 @@ import axios from 'axios'
 import router from './router'
 const app = createApp(App)
 
-app.config.globalProperties.cart = [];
+
+// app.config.globalProperties.cart = [{}];
 app.config.globalProperties.$axios = axios;
 app.use(router)
 app.mount('#app')

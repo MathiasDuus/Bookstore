@@ -2,6 +2,8 @@
     <p v-if="errors">
         {{errors}}
     </p>
+
+<!--    TODO: add price tag-->
     <div class="row">
         <div id="leftCol" class="col">
             <div class="row">
