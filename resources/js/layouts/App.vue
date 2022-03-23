@@ -41,7 +41,7 @@
                                     data-toggle="collapse"
                                     :to="{ name: 'cart' }"
                                 >
-                                    Cart
+                                    <p v-text="'cart ('+itemsInCart+')'"></p>
                                 </router-link>
                             </li>
                         </ul>
@@ -67,5 +67,18 @@
 </template>
 
 <script>
+export default {
+    data() {
+        return {
+            itemsInCart: 0
+        }
+    },
+    mounted() {
+        if (localStorage.getItem('itemsInCart')) {
+            this.itemsInCart = localStorage.itemsInCart
+        }
+    }
+
+}
 
 </script>

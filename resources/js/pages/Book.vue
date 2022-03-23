@@ -1,7 +1,6 @@
 <template>
 <!--    <div>Book {{ book }}</div>-->
     <div v-if="errors"> {{errors}} </div>
-<!--    TODO: add Price-->
 <div v-if="book.attributes">
     <div class='row'> <h1 class='movie-title'>{{ book.attributes.name }}</h1> </div>
 
@@ -20,7 +19,7 @@
 
         <div class="col-4 card-margin">
             <div class="card np">
-            <img class="card-img card-image" src="" alt="Movie_poster" @error="defaultImage" >
+            <img class="card-img card-image" :src="'../images/covers/'+ (book.attributes.cover || 'lorem_cover.png')" alt="Movie_poster">
             </div>
         </div>
 
@@ -69,7 +68,6 @@
 
 
 <script>
-import img from '../../pictures/covers/lorem_cover.png'
 
 export default {
     data() {
@@ -79,13 +77,6 @@ export default {
         }
     },
     beforeRouteEnter(to, from, next) {
-        /*
-        axios.get('/api/channel/' + to.params.id).then(response => {
-      next(vm => {
-        vm.content = reponse.data
-      })
-    })
-         */
         axios.get(`http://127.0.0.1:8000/api/book/` + to.params.id, {
             headers: {
                 Accept: "application/json"
@@ -105,13 +96,17 @@ export default {
     },
 
     methods: {
-        defaultImage(event) {
-            event.target.src = img
-        },
         // Add a book to cart
         addToCart() {
             // Gets the cart from local storage
             let cart = JSON.parse(localStorage.getItem('cart'))
+            let count = JSON.parse(localStorage.getItem('itemsInCart'))+1
+            this.$parent.$parent.$parent.itemsInCart++;
+            localStorage.setItem('itemsInCart', count.toString())
+            // Checks if there is a cart in localstorage, and gives local cart a value.
+            if (cart === null){
+                cart = []
+            }
 
             // Used to add one more of the same book to cart
             const newArr = cart.map(obj => {

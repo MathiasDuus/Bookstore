@@ -7,7 +7,7 @@ import axios from 'axios'
 import router from './router'
 const app = createApp(App)
 
-
+// localStorage.clear()
 // app.config.globalProperties.cart = [{}];
 app.config.globalProperties.$axios = axios;
 app.use(router)
