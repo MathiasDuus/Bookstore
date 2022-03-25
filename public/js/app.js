@@ -22986,8 +22986,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Auth_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Auth.js */ "./resources/js/Auth.js");
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Login",
   data: function data() {
@@ -23000,14 +22998,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     login: function login() {
+      var _this = this;
+
       axios.post('http://127.0.0.1:8000/api/login', this.user, {
         headers: {
           Accept: "application/json"
         }
       }).then(function (_ref) {
         var data = _ref.data;
-        console.log(data); // Auth.login(data.access_token, data.user); //set local storage
-        // this.$router.push('/checkout');
+        console.log(data);
+        localStorage.setItem('user', _this.user.email);
+        localStorage.setItem('token', data.token); // this.$router.push('/checkout');
       })["catch"](function (error) {
         alert(error.response.data.error);
       });
@@ -23919,70 +23920,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
-/***/ "./resources/js/Auth.js":
-/*!******************************!*\
-  !*** ./resources/js/Auth.js ***!
-  \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-
-
-var Auth = /*#__PURE__*/function () {
-  function Auth() {
-    _classCallCheck(this, Auth);
-
-    this.token = window.localStorage.getItem('token');
-    var userData = window.localStorage.getItem('user'); // this.user = userData ? JSON.parse(userData) : null;
-
-    if (this.token) {
-      (axios__WEBPACK_IMPORTED_MODULE_0___default().defaults.headers.common.Authorization) = 'Bearer ' + this.token;
-    }
-  }
-
-  _createClass(Auth, [{
-    key: "login",
-    value: function login(token, user) {
-      window.localStorage.setItem('token', token);
-      window.localStorage.setItem('user', JSON.stringify(user));
-      (axios__WEBPACK_IMPORTED_MODULE_0___default().defaults.headers.common.Authorization) = 'Bearer ' + token;
-      this.token = token;
-      this.user = user;
-    }
-  }, {
-    key: "check",
-    value: function check() {
-      return !!this.token;
-    }
-  }, {
-    key: "logout",
-    value: function logout() {
-      // window.localStorage.clear();
-      window.localStorage.removeItem('token');
-      window.localStorage.removeItem('user');
-      this.user = null;
-    }
-  }]);
-
-  return Auth;
-}();
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new Auth());
-
-/***/ }),
-
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -23996,7 +23933,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
-/* harmony import */ var _Auth_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Auth.js */ "./resources/js/Auth.js");
  // window.Vue = require('vue');
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
@@ -24005,10 +23941,10 @@ __webpack_require__(/*! ../css/app.css */ "./resources/css/app.css");
 
 
 
+ // import Auth from './Auth.js';
 
-
-var app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)(_layouts_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
-app.config.globalProperties.$auth = _Auth_js__WEBPACK_IMPORTED_MODULE_4__["default"]; // console.log(app.config.globalProperties.$auth)
+var app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)(_layouts_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]); // app.config.globalProperties.$auth = Auth;
+// console.log(app.config.globalProperties.$auth)
 // Vue.prototype.auth = Auth;
 // localStorage.clear()
 // app.config.globalProperties.cart = [{}];

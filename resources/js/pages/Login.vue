@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import Auth from '../Auth.js';
 
 export default {
     name: "Login",
@@ -43,7 +42,8 @@ export default {
             })
                 .then(({data}) => {
                     console.log(data)
-                    // Auth.login(data.access_token, data.user); //set local storage
+                    localStorage.setItem('user', this.user.email)
+                    localStorage.setItem('token', data.token)
                     // this.$router.push('/checkout');
 
                 })
