@@ -15,19 +15,19 @@
                         <h2 class="genre-count ms-auto">{{genre.book.length}}</h2>
                 </div>
                 <div class="row">
-                        <div v-for="(book, index) in genre.book" class="col-3 card-margin" @click="showBook(book.id)">
-                            <div class="card" v-if="index <=3">
-                                <img class="card-img card-image" :src="'images/covers/'+ (book.attributes.cover || 'lorem_cover.png')"  alt="book_cover">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ book.attributes.name }}</h5>
-                                </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">{{ book.attributes.price}} DKK</li>
-                                </ul>
+                    <div v-for="(book, index) in genre.book" class="col-3 card-margin" @click="showBook(book.id)">
+                        <div class="card" v-if="index <=3">
+                            <img class="card-img card-image" :src="'images/covers/'+ (book.attributes.cover || 'lorem_cover.png')"  alt="book_cover">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ book.attributes.name }}</h5>
                             </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">{{ book.attributes.price}} DKK</li>
+                            </ul>
                         </div>
                     </div>
-                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -37,6 +37,7 @@
 <script>
 
 export default {
+    name: "Home",
     data() {
         return {
             genres: [],

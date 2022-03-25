@@ -4,8 +4,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from './pages/Home.vue';
 import About from './pages/About.vue';
 import Book from './pages/Book.vue';
+import Genre from './pages/Genre.vue';
 import Cart from './pages/Checkout.vue';
 import Login from './pages/Login.vue';
+import Register from './pages/Register.vue';
 
 export const routes = [
     {
@@ -24,6 +26,11 @@ export const routes = [
         component: Book
     },
     {
+        path: '/genre/:id',
+        name: 'genre',
+        component: Genre
+    },
+    {
         path: '/checkout',
         name: 'cart',
         component: Cart
@@ -32,6 +39,11 @@ export const routes = [
         path: '/login',
         name: 'login',
         component: Login
+    },
+    {
+        path: '/register',
+        name: 'register',
+        component: Register
     },
 ]
 

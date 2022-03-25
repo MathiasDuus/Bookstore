@@ -64,12 +64,15 @@
 
     <div class="container">
 
-
-        <router-view v-slot="{ Component }">
+        <router-view v-slot="{ Component, route }" >
             <keep-alive>
-                <component :is="Component"></component>
+                <component
+                    :is="Component"
+                    :key="route.meta.usePathKey ? route.path : undefined"
+                />
             </keep-alive>
         </router-view>
+
     </div>
 
 

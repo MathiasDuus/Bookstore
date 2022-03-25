@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 // Controllers
@@ -56,6 +57,11 @@ Route::group(['middleware' => ['auth:customer_api,employee_api']], function () {
 
 
 # Unprotected routes
+// Register customer
+Route::post('register', [AuthController::class, 'register']);
+// Login route
+Route::post('login', [AuthController::class, 'login']);
+
 // Books
 Route::get('book',[BookController::class,'index'])->name('book.index');
 Route::get('book/amount/{amount}',[BookController::class,'index'])->name('book.amount');

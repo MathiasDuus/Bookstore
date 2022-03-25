@@ -70,6 +70,7 @@
 <script>
 
 export default {
+    name: "Book",
     data() {
         return {
             book: [],
