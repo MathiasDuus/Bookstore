@@ -37,30 +37,32 @@ export default {
         }
     },
     mounted() {
-        if (localStorage.getItem('cart')) {
-            this.cart = JSON.parse(localStorage.getItem('cart'))
-            for (let key in this.cart) {
-                this.totalPrice += this.cart[key].quantity * this.cart[key].price;
-            }
-            console.log(this.cart)
-        }
+        this.showCart()
     },
     beforeUpdate() {
-        if (localStorage.getItem('cart')) {
-            this.cart = JSON.parse(localStorage.getItem('cart'))
-            for (let key in this.cart) {
-                this.totalPrice += this.cart[key].quantity * this.cart[key].price;
-            }
-            console.log(this.cart)
-        }
+        this.showCart()
     },
     methods: {
+        showCart(){
+            if (localStorage.getItem('cart')) {
+                this.totalPrice = 0.56;
+                this.cart = JSON.parse(localStorage.getItem('cart'))
+                for (let key in this.cart) {
+                    this.totalPrice += this.cart[key].quantity * this.cart[key].price;
+                }
+                this.totalPrice = this.numberWithCommas(this.totalPrice);
+                console.log(this.cart)
+            }
+        },
         buy() {
             this.totalPrice = 0
             this.cart = []
             this.$parent.$parent.$parent.itemsInCart = 0;
             localStorage.removeItem('cart')
             localStorage.removeItem('itemsInCart')
+        },
+        numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
     }
 }
