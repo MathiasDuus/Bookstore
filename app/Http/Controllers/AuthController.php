@@ -1,50 +1,67 @@
 <?php
 namespace App\Http\Controllers;
+
 use App\Http\Requests\AuthRequest;
 use App\Models\customer;
+use App\Models\employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
 class AuthController extends Controller
 {
     public function register(AuthRequest $request)
     {
-        $requestData = $request->all();
 
+        $request['password'] = password_hash($request['password'], PASSWORD_DEFAULT);
+        $user = customer::create($request->toArray());
+        $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+        $response = ['token' => $token];
+        return response($response, 200);
 
-//        $requestData['password'] = Hash::make($requestData['password']);
-
-        $requestData['password'] = password_hash($requestData['password'],PASSWORD_DEFAULT );
-
-        $user = customer::create($requestData);
-
-        return response([ 'status' => true, 'message' => 'User successfully register.' ], 200);
     }
 
     public function login(Request $request)
     {
-        $requestData = $request->all();
-        $validator = Validator::make($requestData,[
-            'email' => 'email|required',
-            'password' => 'required'
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:8',
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->errors()
-            ], 422);
+            return response(['error' => $validator->errors()->first()], 422);
         }
 
-        $type = "";
-        if (customer::where('email', $requestData['email'])->first()){
-            $type = "customer";
-        }else{
-            $type = "employee";
+        $user = customer::where('email', $request->email)->first();
+        $employee = employee::where('email', $request->email)->first();
+        if ($user) {
+
+            if (password_verify($request->password, $user->password)) {
+                $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+                $response = ['token' => $token];
+                return response($response, 200);
+
+            } else {
+                $response = ["error" => "Email or password is wrong"];
+                return response($response, 422);
+            }
+
+        } elseif ($employee) {
+            if (password_verify($request->password, $employee->password)) {
+                $token = $employee->createToken('Laravel Password Grant Client')->accessToken;
+                $response = ['token' => $token];
+                return response($response, 200);
+            } else {
+                $response = ["error" => "Email or password is wrong"];
+                return response($response, 422);
+            }
+
+        } else {
+
+            $response = ["error" => 'User does not exist'];
+            return response($response, 422);
         }
-
-
-        return response($type, 200);
     }
 
     public function me(Request $request)

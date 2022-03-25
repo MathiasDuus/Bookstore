@@ -6,11 +6,11 @@
         <form id="register">
             <div class="mb-3">
                 <label for="email" class="form-label">E-mail</label>
-                <input class="form-control" id="email" placeholder="mail@mail.com" type="email" required v-model="user.email"/>
+                <input class="form-control" id="email" placeholder="mail@mail.com" type="email" v-model="user.email"/>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input class="form-control password" id="password" type="password" placeholder="Password" required v-model="user.password"/>
+                <input class="form-control password" id="password" type="password" placeholder="Password" v-model="user.password"/>
             </div>
         </form>
         </div>
@@ -36,35 +36,23 @@ export default {
 
     methods: {
         login() {
-            axios.post('http://127.0.0.1:8000/api/login', this.user)
+            axios.post('http://127.0.0.1:8000/api/login', this.user,  {
+                headers: {
+                    Accept: "application/json"
+                }
+            })
                 .then(({data}) => {
-                    if (data === "customer") {
-                        axios.post('http://127.0.0.1:8000/oauth/token', {
-                            'grant_type': 'password',
-                            'client_id': 2,
-                            'client_secret': 'omY5JgTLLi9GQtDpcWm3fSm8b23oY18BAG9e3bmt',
-                            'username': this.email,
-                            'password': this.password,
-                            'scope': '',
-                        })
-                            .then(({data}) => {
-                                console.log(data)
-                                // Auth.login(data.access_token, data.user); //set local storage
-                                // this.$router.push('/checkout');
-                            })
-                            .catch((error) => {
-                                console.log(error);
-                            });
-                    } else if (data === "employee") {
-                        console.log("Employee")
-                    }
+                    console.log(data)
+                    // Auth.login(data.access_token, data.user); //set local storage
+                    // this.$router.push('/checkout');
+
                 })
                 .catch((error) => {
-                    console.log(error);
+                    alert(error.response.data.error);
                 });
         }
     }
-
 }
+
 </script>
 

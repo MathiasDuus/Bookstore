@@ -23000,31 +23000,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     login: function login() {
-      var _this = this;
-
-      axios.post('http://127.0.0.1:8000/api/login', this.user).then(function (_ref) {
-        var data = _ref.data;
-
-        if (data === "customer") {
-          axios.post('http://127.0.0.1:8000/oauth/token', {
-            'grant_type': 'password',
-            'client_id': 2,
-            'client_secret': 'omY5JgTLLi9GQtDpcWm3fSm8b23oY18BAG9e3bmt',
-            'username': _this.email,
-            'password': _this.password,
-            'scope': ''
-          }).then(function (_ref2) {
-            var data = _ref2.data;
-            console.log(data); // Auth.login(data.access_token, data.user); //set local storage
-            // this.$router.push('/checkout');
-          })["catch"](function (error) {
-            console.log(error);
-          });
-        } else if (data === "employee") {
-          console.log("Employee");
+      axios.post('http://127.0.0.1:8000/api/login', this.user, {
+        headers: {
+          Accept: "application/json"
         }
+      }).then(function (_ref) {
+        var data = _ref.data;
+        console.log(data); // Auth.login(data.access_token, data.user); //set local storage
+        // this.$router.push('/checkout');
       })["catch"](function (error) {
-        console.log(error);
+        alert(error.response.data.error);
       });
     }
   }
@@ -23752,7 +23737,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: "email",
     placeholder: "mail@mail.com",
     type: "email",
-    required: "",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return $data.user.email = $event;
     })
@@ -23763,7 +23747,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: "password",
     type: "password",
     placeholder: "Password",
-    required: "",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return $data.user.password = $event;
     })
