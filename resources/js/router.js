@@ -9,6 +9,7 @@ import Cart from './pages/Checkout.vue';
 import Login from './pages/Login.vue';
 import Register from './pages/Register.vue';
 import Dashboard from './pages/Dashboard.vue';
+import cms from './pages/CMS.vue';
 
 export const routes = [
     {
@@ -50,6 +51,11 @@ export const routes = [
         path: '/dashboard',
         name: 'dashboard',
         component: Dashboard
+    },
+    {
+        path: '/cms',
+        name: 'cms',
+        component: cms
     },
 ]
 

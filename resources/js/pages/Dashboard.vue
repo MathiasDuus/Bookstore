@@ -4,7 +4,7 @@
     <div class="row" v-if="user.first_name && user.last_name">
         <h1 class="col">{{ user.first_name + ' ' + user.last_name }}</h1>
     </div>
-    <div class="col" id="comment_user">
+    <div class="col" v-if="orders.length >0">
         <h2><b>Orders:</b></h2>
 
         <table class="table table-striped table-hover">
@@ -28,6 +28,17 @@
 
 
     </div>
+
+    <div class="col" v-if="employee.attributes">
+        <ul>
+            <li>
+                <h3><span class="red-text">Department: </span>{{ employee.attributes.department}}</h3>
+            </li>
+            <li>
+                <h3><span class="red-text">Store: </span>{{ employee.attributes.store}}</h3>
+            </li>
+        </ul>
+    </div>
 </template>
 
 <script>
@@ -36,10 +47,12 @@ export default {
     data() {
         return {
             orders: [],
-            user: []
+            user: [],
+            employee:[]
         }
     },
     beforeRouteEnter(to, from, next) {
+        // console.log(localStorage.getItem('user'))
         if (localStorage.getItem('user')) {
             axios.get(`http://127.0.0.1:8000/api/customer/` + JSON.parse(localStorage.getItem('user')).id, {
                 headers: {
@@ -84,20 +97,35 @@ export default {
                         vm.errors = e
                     })
                 })
-        }else {
+        }
+        else if(localStorage.getItem('employee')){
+            axios.get(`http://127.0.0.1:8000/api/employee/` + JSON.parse(localStorage.getItem('employee')).id, {
+                headers: {
+                    Accept: "application/json"
+                }
+            })
+                .then(response => {
+                    next(vm => {
+                        vm.employee = response.data.data
+                        vm.user = {
+                            first_name:response.data.data.attributes.first_name,
+                            last_name:response.data.data.attributes.last_name
+                        }
+                        console.log(vm.employee)
+                    })
+                })
+                .catch(e => {
+                    next(vm => {
+                        vm.errors = e
+                    })
+                })
+        }
+        else {
             next(vm=>{
                 vm.$router.push('/login')
             })
         }
     },
-    methods: {
-        getOrders() {
-
-        },
-        show(id) {
-
-        }
-    }
 }
 </script>
 

@@ -44,7 +44,7 @@
                                     <p v-text="'cart ('+itemsInCart+')'"></p>
                                 </router-link>
                             </li>
-                            <li class="nav-item" v-if="user">
+                            <li class="nav-item" v-if="user || employee">
                                 <router-link
                                     class="nav-link"
                                     data-toggle="collapse"
@@ -53,7 +53,16 @@
                                     Dashboard
                                 </router-link>
                             </li>
-                            <li class="nav-item" v-if="user">
+                            <li class="nav-item" v-if="employee">
+                                <router-link
+                                    class="nav-link"
+                                    data-toggle="collapse"
+                                    :to="{ name: 'cms' }"
+                                >
+                                    CMS
+                                </router-link>
+                            </li>
+                            <li class="nav-item" v-if="user || employee">
                                 <div
                                     class="nav-link text-danger cursor-point"
                                     data-toggle="collapse"
@@ -62,7 +71,7 @@
                                     Logout
                                 </div>
                             </li>
-                            <li class="nav-item" v-if="!user">
+                            <li class="nav-item" v-if="!user && !employee">
                                 <router-link
                                     class="nav-link"
                                     data-toggle="collapse"
@@ -101,7 +110,8 @@ export default {
     data() {
         return {
             itemsInCart: 0,
-            user:false
+            user:false,
+            employee:false
         }
     },
     mounted() {
@@ -119,10 +129,12 @@ export default {
     methods: {
         loggedIn(){
             this.user = (!!(localStorage.getItem('user')));
+            this.employee = (!!(localStorage.getItem('employee')));
         },
         logout(){
             this.$auth.logout()
             this.user = false
+            this.employee = false
             this.$router.push('/')
         }
     },

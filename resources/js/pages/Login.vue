@@ -47,9 +47,15 @@ export default {
                 }
             })
                 .then(({data}) => {
-                    this.$auth.login(data.token, data.user)
-                    this.$parent.$parent.$parent.user = true;
-                    console.log(data)
+                    if (data.employee){
+                        this.$auth.login(data.token, data.employee)
+                        this.$parent.$parent.$parent.employee = true;
+
+                    }else {
+                        this.$auth.login(data.token, data.user)
+                        this.$parent.$parent.$parent.user = true;
+                    }
+                    console.log(data.employee)
                     // localStorage.setItem('user', this.user.email)
                     // localStorage.setItem('token', data.token)
                     this.$router.push('/dashboard');
