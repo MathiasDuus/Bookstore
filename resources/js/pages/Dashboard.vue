@@ -1,14 +1,13 @@
 <template>
     <button class="width-fit btn btn-m btn-secondary" @click="$router.go(-1)" >Back</button>
 
-    <div class="row" v-if="user">
+    <div class="row" v-if="user.first_name && user.last_name">
         <h1 class="col">{{ user.first_name + ' ' + user.last_name }}</h1>
     </div>
     <div class="col" id="comment_user">
         <h2><b>Orders:</b></h2>
-<!--        @if($comments!= null && count($comments) >0)-->
-<!--        @foreach($comments as $comment)-->
-        <table class="table-sm table-striped table-hover table-bordered border-dark">
+
+        <table class="table table-striped table-hover">
             <thead>
             <tr>
                 <th>ID</th>
@@ -18,16 +17,15 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="order in orders" @click="show(order.id)">
-                <td>order.id</td>
-                <td>order.quantity</td>
-                <td>order.price</td>
-                <td>order.status</td>
+            <tr v-for="order in orders">
+                <td>{{ order.id }}</td>
+                <td>{{ order.quantity }}</td>
+                <td>{{ order.price }}</td>
+                <td>{{ order.status }}</td>
             </tr>
             </tbody>
         </table>
-<!--        @endforeach-->
-<!--        @endif-->
+
 
     </div>
 </template>
@@ -43,15 +41,42 @@ export default {
     },
     beforeRouteEnter(to, from, next) {
         if (localStorage.getItem('user')) {
-            axios.get(`http://127.0.0.1:8000/api/customer/` + localStorage.getItem('user').id, {
+            axios.get(`http://127.0.0.1:8000/api/customer/` + JSON.parse(localStorage.getItem('user')).id, {
                 headers: {
                     Accept: "application/json"
                 }
             })
                 .then(response => {
                     next(vm => {
-                        vm.book = response.data.data
-                        console.log(vm.book)
+                        vm.orders = response.data.data.attributes.orders
+                        let id= 0
+                        let quantity = 0
+                        let price = 0
+                        let status = ""
+                        let ord = []
+                        for (let orders of vm.orders) {
+                            for (let order of orders){
+                                id = order.id
+                                status = order.attributes.status
+
+                                for (let orderLine of order.attributes.order_line) {
+                                    quantity += orderLine.attributes.quantity
+                                    price += orderLine.attributes.quantity*orderLine.attributes.price
+                                }
+                                ord.push({
+                                    id:id,
+                                    quantity:quantity,
+                                    price:price,
+                                    status:status
+                                })
+                            }
+                        }
+                        vm.orders = ord
+                        vm.user = {
+                            first_name:response.data.data.attributes.first_name,
+                            last_name:response.data.data.attributes.last_name
+                        }
+                        console.log(vm.orders)
                     })
                 })
                 .catch(e => {

@@ -19,7 +19,7 @@ class OrderLineFactory extends Factory
             'order_id' => $this->faker->randomElement($order),
             'book_id' => $this->faker->randomElement($book),
             'quantity' => rand(1,50),
-            'price' => rand(50,5000),
+            'price' => rand(50,1000),
         ];
     }
 }
