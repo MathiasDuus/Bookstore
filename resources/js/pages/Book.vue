@@ -7,7 +7,7 @@
     <div class="row"><button class="width-fit btn btn-m btn-secondary" @click="$router.go(-1)" >Back</button>
 
 
-        <div class="ms-auto form-check">
+        <div class="ms-auto form-check" v-if="!$parent.$parent.$parent.employee">
             <button class="width-fit btn btn-m btn-primary" id="addCartButton" @click="addToCart">
                 Add to cart
             </button>

@@ -37,6 +37,7 @@
                             </li>
                             <li class="nav-item">
                                 <router-link
+                                    v-if="!employee"
                                     class="nav-link"
                                     data-toggle="collapse"
                                     :to="{ name: 'cart' }"

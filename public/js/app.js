@@ -22868,6 +22868,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Cart",
   data: function data() {
@@ -22885,7 +22891,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     showCart: function showCart() {
       if (localStorage.getItem('cart')) {
-        this.totalPrice = 0.56;
+        this.totalPrice = 0;
         this.cart = JSON.parse(localStorage.getItem('cart'));
 
         for (var key in this.cart) {
@@ -22897,12 +22903,49 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     buy: function buy() {
+      var _this = this;
+
       if (localStorage.getItem('user')) {
-        this.totalPrice = 0;
-        this.cart = [];
-        this.$parent.$parent.$parent.itemsInCart = 0;
-        localStorage.removeItem('cart');
-        localStorage.removeItem('itemsInCart');
+        var checkoutData = {
+          address_id: JSON.parse(localStorage.getItem('user')).attributes.addresses[0].id,
+          date: '2002-10-10',
+          status: 'in transit'
+        };
+        axios.post("http://127.0.0.1:8000/api/order", checkoutData).then(function (_ref) {
+          var data = _ref.data;
+          console.log(data.data.id);
+
+          var _iterator = _createForOfIteratorHelper(_this.cart),
+              _step;
+
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var book = _step.value;
+              axios.post("http://127.0.0.1:8000/api/orderLine", {
+                order_id: data.data.id,
+                book_id: book.id,
+                quantity: book.quantity,
+                price: book.price
+              }).then(function (_ref2) {
+                var data = _ref2.data;
+                console.log(data);
+                _this.totalPrice = 0;
+                _this.cart = [];
+                _this.$parent.$parent.$parent.itemsInCart = 0;
+                localStorage.removeItem('cart');
+                localStorage.removeItem('itemsInCart');
+              })["catch"](function (error) {
+                console.log(error);
+              });
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
+          }
+        })["catch"](function (error) {
+          console.log(error);
+        });
       } else {
         alert('You must login or register');
         this.$router.push('/login');
@@ -22995,6 +23038,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                     price: price,
                     status: status
                   });
+                  id = 0;
+                  quantity = 0;
+                  price = 0;
+                  status = '';
                 }
               } catch (err) {
                 _iterator2.e(err);
@@ -23013,7 +23060,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             first_name: response.data.data.attributes.first_name,
             last_name: response.data.data.attributes.last_name
           };
-          console.log(vm.orders);
+          console.log(response.data.data.attributes.orders);
         });
       })["catch"](function (e) {
         next(function (vm) {
@@ -23400,7 +23447,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_14, [!$data.employee ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_link, {
+    key: 0,
     "class": "nav-link",
     "data-toggle": "collapse",
     to: {
@@ -23417,7 +23465,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  })]), $data.user || $data.employee ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), $data.user || $data.employee ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     "class": "nav-link",
     "data-toggle": "collapse",
     to: {
@@ -23537,6 +23585,7 @@ var _hoisted_5 = {
   "class": "row"
 };
 var _hoisted_6 = {
+  key: 0,
   "class": "ms-auto form-check"
 };
 var _hoisted_7 = {
@@ -23610,13 +23659,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return _ctx.$router.go(-1);
     })
-  }, "Back"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, "Back"), !_ctx.$parent.$parent.$parent.employee ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "width-fit btn btn-m btn-primary",
     id: "addCartButton",
     onClick: _cache[1] || (_cache[1] = function () {
       return $options.addToCart && $options.addToCart.apply($options, arguments);
     })
-  }, " Add to cart ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  }, " Add to cart ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     "class": "card-img card-image",
     src: '../images/covers/' + ($data.book.attributes.cover || 'lorem_cover.png'),
     alt: "Movie_poster"

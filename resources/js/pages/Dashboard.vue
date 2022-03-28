@@ -82,6 +82,11 @@ export default {
                                     price:price,
                                     status:status
                                 })
+                                id=0
+                                quantity=0
+                                price=0
+                                status=''
+
                             }
                         }
                         vm.orders = ord
@@ -89,7 +94,7 @@ export default {
                             first_name:response.data.data.attributes.first_name,
                             last_name:response.data.data.attributes.last_name
                         }
-                        console.log(vm.orders)
+                        console.log(response.data.data.attributes.orders)
                     })
                 })
                 .catch(e => {

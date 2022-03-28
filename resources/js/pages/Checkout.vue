@@ -45,7 +45,7 @@ export default {
     methods: {
         showCart() {
             if (localStorage.getItem('cart')) {
-                this.totalPrice = 0.56;
+                this.totalPrice = 0;
                 this.cart = JSON.parse(localStorage.getItem('cart'))
                 for (let key in this.cart) {
                     this.totalPrice += this.cart[key].quantity * this.cart[key].price;
@@ -56,11 +56,37 @@ export default {
         },
         buy() {
             if (localStorage.getItem('user')) {
-                this.totalPrice = 0
-                this.cart = []
-                this.$parent.$parent.$parent.itemsInCart = 0;
-                localStorage.removeItem('cart')
-                localStorage.removeItem('itemsInCart')
+                let checkoutData = {
+                    address_id:JSON.parse(localStorage.getItem('user')).attributes.addresses[0].id,
+                    date:'2002-10-10',
+                    status: 'in transit'
+                }
+                axios.post(`http://127.0.0.1:8000/api/order`, checkoutData)
+                    .then(({data}) => {
+                        console.log(data.data.id)
+                        for (let book of this.cart) {
+                            axios.post(`http://127.0.0.1:8000/api/orderLine`, {
+                                order_id:data.data.id,
+                                book_id:book.id,
+                                quantity:book.quantity,
+                                price:book.price,
+                            })
+                                .then(({data}) => {
+                                    console.log(data)
+                                    this.totalPrice = 0
+                                    this.cart = []
+                                    this.$parent.$parent.$parent.itemsInCart = 0;
+                                    localStorage.removeItem('cart')
+                                    localStorage.removeItem('itemsInCart')
+                                })
+                                .catch((error) => {
+                                    console.log(error);
+                                });
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
             }else{
                 alert('You must login or register')
                 this.$router.push('/login');
