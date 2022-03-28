@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CustomerResource;
+use App\Http\Resources\EmployeeResource;
 use App\Models\customer;
 use App\Models\employee;
 use Illuminate\Http\Request;
@@ -75,7 +77,7 @@ class AuthController extends Controller
             if (password_verify($request->password, $employee->password)) {
                 // Creates and returns the token
                 $token = $employee->createToken('Laravel Password Grant Client')->accessToken;
-                $response = ['token' => $token, 'user' => $employee];
+                $response = ['token' => $token, 'user' => new EmployeeResource($employee)];
                 return response($response, 200);
             } else {
                 // Returns error if passwords didn't match
@@ -88,7 +90,7 @@ class AuthController extends Controller
 
             if (password_verify($request->password, $user->password)) {
                 $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-                $response = ['token' => $token, 'user' => $user];
+                $response = ['token' => $token, 'user' => new CustomerResource($user)];
                 return response($response, 200);
 
             } else {
@@ -107,13 +109,16 @@ class AuthController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    public function logout (Request $request) {
-        // Gets the token
-        $token = $request->user()->token();
-        // Revokes it
-        $token->revoke();
-        // Returns a success message
-        $response = ['message' => 'You have been successfully logged out!'];
-        return response($response, 200);
-    }
+//    public function logout (Request $request) {
+//        $user = customer::where('email', $request['attributes']['email'])->first();
+//        // Gets the token
+//        $token = $user->token();
+//
+//        return $user->token()->revoke();
+//        // Revokes it
+//        $token->revoke();
+//        // Returns a success message
+//        $response = ['message' => 'You have been successfully logged out!'];
+//        return response($response, 200);
+//    }
 }

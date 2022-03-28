@@ -44,17 +44,26 @@
                                     <p v-text="'cart ('+itemsInCart+')'"></p>
                                 </router-link>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item" v-if="user">
                                 <router-link
-                                    v-if="user"
                                     class="nav-link"
                                     data-toggle="collapse"
                                     :to="{ name: 'dashboard' }"
                                 >
                                     Dashboard
                                 </router-link>
+                            </li>
+                            <li class="nav-item" v-if="user">
+                                <div
+                                    class="nav-link text-danger cursor-point"
+                                    data-toggle="collapse"
+                                    @click="logout"
+                                >
+                                    Logout
+                                </div>
+                            </li>
+                            <li class="nav-item" v-if="!user">
                                 <router-link
-                                    v-else
                                     class="nav-link"
                                     data-toggle="collapse"
                                     :to="{ name: 'login' }"
@@ -110,6 +119,11 @@ export default {
     methods: {
         loggedIn(){
             this.user = (!!(localStorage.getItem('user')));
+        },
+        logout(){
+            this.$auth.logout()
+            this.user = false
+            this.$router.push('/')
         }
     },
 

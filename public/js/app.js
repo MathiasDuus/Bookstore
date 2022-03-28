@@ -22702,6 +22702,11 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     loggedIn: function loggedIn() {
       this.user = !!localStorage.getItem('user');
+    },
+    logout: function logout() {
+      this.$auth.logout();
+      this.user = false;
+      this.$router.push('/');
     }
   }
 });
@@ -22926,6 +22931,10 @@ __webpack_require__.r(__webpack_exports__);
           vm.errors = e;
         });
       });
+    } else {
+      next(function (vm) {
+        vm.$router.push('/login');
+      });
     }
   },
   methods: {
@@ -23052,8 +23061,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Auth_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Auth.js */ "./resources/js/Auth.js");
-
+// import Auth from '../Auth.js'
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Login",
   data: function data() {
@@ -23074,8 +23082,11 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (_ref) {
         var data = _ref.data;
-        console.log(data);
-        _Auth_js__WEBPACK_IMPORTED_MODULE_0__["default"].login(data.user, data.token); // localStorage.setItem('user', this.user.email)
+
+        _this.$auth.login(data.token, data.user);
+
+        _this.$parent.$parent.$parent.user = true;
+        console.log(data); // localStorage.setItem('user', this.user.email)
         // localStorage.setItem('token', data.token)
 
         _this.$router.push('/dashboard');
@@ -23201,14 +23212,24 @@ var _hoisted_14 = {
 };
 var _hoisted_15 = ["textContent"];
 var _hoisted_16 = {
+  key: 0,
   "class": "nav-item"
 };
 
 var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Dashboard ");
 
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Login ");
-
+var _hoisted_18 = {
+  key: 1,
+  "class": "nav-item"
+};
 var _hoisted_19 = {
+  key: 2,
+  "class": "nav-item"
+};
+
+var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Login ");
+
+var _hoisted_21 = {
   "class": "container"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -23278,8 +23299,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_16, [$data.user ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_link, {
-    key: 0,
+  })]), $data.user ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     "class": "nav-link",
     "data-toggle": "collapse",
     to: {
@@ -23292,8 +23312,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  })) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_link, {
-    key: 1,
+  })])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.user ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "nav-link text-danger cursor-point",
+    "data-toggle": "collapse",
+    onClick: _cache[0] || (_cache[0] = function () {
+      return $options.logout && $options.logout.apply($options, arguments);
+    })
+  }, " Logout ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$data.user ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     "class": "nav-link",
     "data-toggle": "collapse",
     to: {
@@ -23301,12 +23326,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_18];
+      return [_hoisted_20];
     }),
     _: 1
     /* STABLE */
 
-  }))])])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view, null, {
+  })])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view, null, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function (_ref) {
       var Component = _ref.Component,
           route = _ref.route;
@@ -23895,6 +23920,12 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 var _hoisted_8 = {
   "class": "row"
 };
+var _hoisted_9 = {
+  "class": "col"
+};
+var _hoisted_10 = {
+  "class": "col"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "width-fit btn btn-m btn-secondary",
@@ -23921,13 +23952,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.user.password]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    id: "register-btn",
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.user.password]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "btn btn-primary width-fit",
     onClick: _cache[3] || (_cache[3] = function () {
       return $options.login && $options.login.apply($options, arguments);
     })
-  }, "Login")])])], 64
+  }, "Login")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "btn btn-secondary width-fit",
+    onClick: _cache[4] || (_cache[4] = function ($event) {
+      return _ctx.$router.push('/register');
+    })
+  }, "Register")])])])], 64
   /* STABLE_FRAGMENT */
   );
 }
@@ -24166,6 +24201,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
+/* harmony import */ var _Auth_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Auth.js */ "./resources/js/Auth.js");
  // window.Vue = require('vue');
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
@@ -24174,7 +24210,7 @@ __webpack_require__(/*! ../css/app.css */ "./resources/css/app.css");
 
 
 
- // import Auth from './Auth.js';
+
 
 var app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)(_layouts_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]); // app.config.globalProperties.$auth = Auth;
 // console.log(app.config.globalProperties.$auth)
@@ -24183,6 +24219,7 @@ var app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)(_layouts_App_vue__WEBPA
 // app.config.globalProperties.cart = [{}];
 
 app.config.globalProperties.$axios = (axios__WEBPACK_IMPORTED_MODULE_2___default());
+app.config.globalProperties.$auth = _Auth_js__WEBPACK_IMPORTED_MODULE_4__["default"];
 app.use(_router__WEBPACK_IMPORTED_MODULE_3__["default"]);
 app.mount('#app');
 

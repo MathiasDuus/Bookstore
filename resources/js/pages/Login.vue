@@ -15,13 +15,18 @@
         </form>
         </div>
         <div class="row">
-        <button id="register-btn" class="btn btn-primary width-fit" @click="login">Login</button>
+            <div class="col">
+                <button class="btn btn-primary width-fit" @click="login">Login</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-secondary width-fit" @click="$router.push('/register')">Register</button>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import Auth from '../Auth.js'
+// import Auth from '../Auth.js'
 
 export default {
     name: "Login",
@@ -36,14 +41,15 @@ export default {
 
     methods: {
         login() {
-            axios.post('http://127.0.0.1:8000/api/login', this.user,  {
+            axios.post('http://127.0.0.1:8000/api/login', this.user, {
                 headers: {
                     Accept: "application/json"
                 }
             })
                 .then(({data}) => {
+                    this.$auth.login(data.token, data.user)
+                    this.$parent.$parent.$parent.user = true;
                     console.log(data)
-                    Auth.login(data.user, data.token)
                     // localStorage.setItem('user', this.user.email)
                     // localStorage.setItem('token', data.token)
                     this.$router.push('/dashboard');

@@ -58,9 +58,11 @@ Route::group(['middleware' => ['auth:customer_api,employee_api']], function () {
 
 # Unprotected routes
 // Register customer
-Route::post('register', [AuthController::class, 'register']);
+Route::post('register', [AuthController::class, 'register'])->name('register');
 // Login route
-Route::post('login', [AuthController::class, 'login']);
+Route::post('login', [AuthController::class, 'login'])->name('login');
+// Logout route
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 // Books
 Route::get('book',[BookController::class,'index'])->name('book.index');
@@ -94,26 +96,6 @@ Route::middleware('auth:customer_api')->get('/customer_token_test', function (Re
 Route::middleware('auth:employee_api')->get('/employee_token_test', function (Request $request) {
     return "Employee token works, Good job :)";
 })->name('Employee token test');
-
-
-// API ROUTES
-//Route::apiResource('/author', \App\Http\Controllers\AuthorController::class);
-//Route::apiResource('/genre', \App\Http\Controllers\GenreController::class);
-//Route::apiResource('/publisher', \App\Http\Controllers\PublisherController::class);
-//Route::apiResource('/department', \App\Http\Controllers\DepartmentController::class);
-//Route::apiResource('/customer', \App\Http\Controllers\CustomerController::class);
-//Route::apiResource('/country', \App\Http\Controllers\CountryController::class);
-//Route::apiResource('/postal', \App\Http\Controllers\PostalController::class);
-//Route::apiResource('/address', \App\Http\Controllers\AddressController::class);
-//Route::apiResource('/book', \App\Http\Controllers\BookController::class);
-//Route::apiResource('/order', \App\Http\Controllers\OrderController::class);
-//Route::apiResource('/orderLine', \App\Http\Controllers\OrderLineController::class);
-//Route::apiResource('/store', \App\Http\Controllers\StoreController::class);
-//Route::apiResource('/depot', \App\Http\Controllers\DepotController::class);
-//Route::apiResource('/employee', \App\Http\Controllers\EmployeeController::class);
-//Route::apiResource('/bookGenre', \App\Http\Controllers\BookGenreController::class);
-
-
 
 
 

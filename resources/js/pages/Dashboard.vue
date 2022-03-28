@@ -59,6 +59,10 @@ export default {
                         vm.errors = e
                     })
                 })
+        }else {
+            next(vm=>{
+                vm.$router.push('/login')
+            })
         }
     },
     methods: {
