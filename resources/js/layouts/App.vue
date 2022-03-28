@@ -46,6 +46,15 @@
                             </li>
                             <li class="nav-item">
                                 <router-link
+                                    v-if="user"
+                                    class="nav-link"
+                                    data-toggle="collapse"
+                                    :to="{ name: 'dashboard' }"
+                                >
+                                    Dashboard
+                                </router-link>
+                                <router-link
+                                    v-else
                                     class="nav-link"
                                     data-toggle="collapse"
                                     :to="{ name: 'login' }"
@@ -82,14 +91,27 @@
 export default {
     data() {
         return {
-            itemsInCart: 0
+            itemsInCart: 0,
+            user:false
         }
     },
     mounted() {
+
         if (localStorage.getItem('itemsInCart')) {
             this.itemsInCart = localStorage.itemsInCart
         }
-    }
+        this.loggedIn()
+        console.log(this.user)
+        window.setInterval(() => {
+            this.loggedIn()
+            console.log(this.user)
+        }, 500000)
+    },
+    methods: {
+        loggedIn(){
+            this.user = (!!(localStorage.getItem('user')));
+        }
+    },
 
 }
 

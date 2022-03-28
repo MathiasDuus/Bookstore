@@ -8,6 +8,7 @@ import Genre from './pages/Genre.vue';
 import Cart from './pages/Checkout.vue';
 import Login from './pages/Login.vue';
 import Register from './pages/Register.vue';
+import Dashboard from './pages/Dashboard.vue';
 
 export const routes = [
     {
@@ -44,6 +45,11 @@ export const routes = [
         path: '/register',
         name: 'register',
         component: Register
+    },
+    {
+        path: '/dashboard',
+        name: 'dashboard',
+        component: Dashboard
     },
 ]
 

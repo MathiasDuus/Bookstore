@@ -75,7 +75,7 @@ class AuthController extends Controller
             if (password_verify($request->password, $employee->password)) {
                 // Creates and returns the token
                 $token = $employee->createToken('Laravel Password Grant Client')->accessToken;
-                $response = ['token' => $token];
+                $response = ['token' => $token, 'user' => $employee];
                 return response($response, 200);
             } else {
                 // Returns error if passwords didn't match
@@ -88,7 +88,7 @@ class AuthController extends Controller
 
             if (password_verify($request->password, $user->password)) {
                 $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-                $response = ['token' => $token];
+                $response = ['token' => $token, 'user' => $user];
                 return response($response, 200);
 
             } else {
